@@ -52,24 +52,51 @@
     /* Body background color */
     body {
         background: #ebe7e7;
+        width: 100vw;
+        height: 100vh;
+        max-width: 1920px;
+        max-height: 1080px;
+        margin: 0 auto;
     }
 
     /* Responsive adjustments */
-    @media (max-width: 1200px) {
+    @media (min-width: 1920px) {
         html {
-            font-size: 14px;
+            font-size: 16px;
+        }
+        .container-fluid {
+            max-width: 1920px;
+            margin: 0 auto;
         }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1919px) {
         html {
-            font-size: 13px;
+            font-size: calc(12px + (16 - 12) * ((100vw - 768px) / (1920 - 768)));
         }
-        
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    @media (max-width: 1366px) {
+        html {
+            font-size: 14px;
+        }
         .star_green, .star_red, 
         .legend_layoff5, .legend_scw, 
         .legend_development {
-            font-size: 0.875rem; /* 14px */
+            font-size: 0.875rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        html {
+            font-size: 13px;
+        }
+        .card:hover {
+            box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.15);
         }
     }
 
@@ -77,24 +104,13 @@
         html {
             font-size: 12px;
         }
-        
-        .card:hover {
-            box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.15);
-        }
-    }
-
-    @media (max-width: 576px) {
-        html {
-            font-size: 11px;
-        }
-        
         .star_green, .star_red, 
         .legend_layoff5, .legend_scw, 
         .legend_development {
-            font-size: 0.8125rem; /* 13px */
+            font-size: 0.8125rem;
         }
     }
-</style>
+  </style>
 
 </head>
 <body>
@@ -221,8 +237,10 @@
                     machineLocations.forEach(machine => {
                         document.write(`
                             <div style="position: absolute; top: ${machine.top}px; left: ${machine.left}px;">
-                                <div class="star_yellow" style="width: 35px; height: 35px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="showMachineDetails('${machine.id}')">
-                                    <span style="color: black; font-size: 8px; font-weight: bold; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">${machine.rating}</span>
+                                <div class="star_yellow text-center" style="width: 20px; height: 20px; color: #ffcc00; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="showMachineDetails('${machine.id}')">
+                                    <i class="fa-solid fa-star" style="font-size: 27px; position: relative; font-weight: bold;">
+                                        <span style="color: black; font-size: 8px; font-weight: bold; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="text-center">${machine.rating}</span>
+                                    </i>
                                 </div>
                             </div>
                         `);
@@ -234,20 +252,42 @@
       <!-- Right column - Charts and tables -->
       <div class="col-xl-4 col-md-12 col-sm-12">
         <!-- Charts card -->
-        <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4;">
+        <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4; border-width: 2px; border-style: solid;">
           <div class="card-body">
             <div class="row">
               <!-- Left column - Rating display -->
               <div class="col-12 col-sm-6 mb-4 mb-sm-0">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="text-center mb-3" style="font-weight: bold;">TEMUAN</div>
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                  <div class="text-center mb-4" style="font-weight: bold; font-size: 18px;">ALL-LINE MACHINING</div>
                   <div class="d-flex flex-column align-items-center">
-                    <div style="width: min(120px, 80%); height: auto; aspect-ratio: 1/1;">
-                      <div class="star_yellow" style="width: 100%; height: 100%; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                      </div>
-                    </div>
-                    <div class="mt-2">
-                      <span style="color: black; font-size: clamp(24px, 5vw, 36px); font-weight: bold;">4.5</span>
+                    <div class="text-center mb-3">
+                      <script>
+                        const rating = 4.5; // Using the displayed rating value
+                        const fullStars = Math.floor(rating);
+                        const hasHalfStar = rating % 1 >= 0.5;
+                        const totalStars = 5;
+
+                        document.write(`<span style="color: black; font-size: clamp(30px, 6vw, 65px); font-weight: bold;">${rating}</span>`);
+                        document.write('<div class="d-flex justify-content-center mt-2">');
+
+                        // Generate full stars
+                        for(let i = 0; i < fullStars; i++) {
+                          document.write(`<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 28px; margin: 0 6px;"></i>`);
+                        }
+
+                        // Add half star if needed
+                        if(hasHalfStar) {
+                          document.write(`<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 28px; margin: 0 6px;"></i>`);
+                        }
+
+                        // Fill remaining with empty stars
+                        const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0);
+                        for(let i = 0; i < emptyStars; i++) {
+                          document.write(`<i class="fa-solid fa-star" style="color: #e0e0e0; font-size: 28px; margin: 0 6px;"></i>`);
+                        }
+
+                        document.write('</div>');
+                      </script>
                     </div>
                   </div>
                 </div>
@@ -267,71 +307,31 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="text-center">1</td>
-                          <td class="text-center">MA.006.HIN</td>
-                          <td class="text-center" style="white-space: nowrap;">
-                            <div class="d-flex justify-content-center">
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">2</td>
-                          <td class="text-center">MA.005.TOY</td>
-                          <td class="text-center" style="white-space: nowrap;">
-                            <div class="d-flex justify-content-center">
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">3</td>
-                          <td class="text-center">MA.003.TOY</td>
-                          <td class="text-center" style="white-space: nowrap;">
-                            <div class="d-flex justify-content-center">
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">4</td>
-                          <td class="text-center">MA.002.KYB</td>
-                          <td class="text-center" style="white-space: nowrap;">
-                            <div class="d-flex justify-content-center">
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">5</td>
-                          <td class="text-center">MA.002.AIS</td>
-                          <td class="text-center" style="white-space: nowrap;">
-                            <div class="d-flex justify-content-center">
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                              <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); margin: 0 1px;"></div>
-                            </div>
-                          </td>
-                        </tr>
+                        <script>
+                          const topMachines = [
+                            {rank: 1, id: 'MA.006.HIN', rating: 4.9},
+                            {rank: 2, id: 'MA.005.TOY', rating: 4.8}, 
+                            {rank: 3, id: 'MA.003.TOY', rating: 4.7},
+                            {rank: 4, id: 'MA.002.KYB', rating: 4.6},
+                            {rank: 5, id: 'MA.002.AIS', rating: 4.6}
+                          ];
+
+                          topMachines.forEach(machine => {
+                            document.write(`
+                              <tr>
+                                <td class="text-center">${machine.rank}</td>
+                                <td class="text-center">${machine.id}</td>
+                                <td class="text-center" style="white-space: nowrap;">
+                                  <div class="d-flex justify-content-center">
+                                    ${Array(5).fill().map(() => `
+                                      <i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>
+                                    `).join('')}
+                                  </div>
+                                </td>
+                              </tr>
+                            `);
+                          });
+                        </script>
                       </tbody>
                     </table>
                   </div>
@@ -354,76 +354,36 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="height: 3.5em;">
-                  <td class="text-center">1</td>
-                  <td class="text-center">MA.001.TOY</td>
-                  <td class="text-center">Mechanical</td>
-                  <td class="text-center">
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                  </td>
-                  <td class="text-center">
-                    <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
-                    <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
-                  </td>
-                </tr>
-                <tr style="height: 3.5em;">
-                  <td class="text-center">2</td>
-                  <td class="text-center">MA.002.KYB</td>
-                  <td class="text-center">Electrical</td>
-                  <td class="text-center">
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                  </td>
-                  <td class="text-center">
-                    <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
-                    <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
-                  </td>
-                </tr>
-                <tr style="height: 3.5em;">
-                  <td class="text-center">3</td>
-                  <td class="text-center">MA.003.AIS</td>
-                  <td class="text-center">Software</td>
-                  <td class="text-center">
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                  </td>
-                  <td class="text-center">
-                    <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
-                    <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
-                  </td>
-                </tr>
-                <tr style="height: 3.5em;">
-                  <td class="text-center">4</td>
-                  <td class="text-center">MA.004.TOY</td>
-                  <td class="text-center">Mechanical</td>
-                  <td class="text-center">
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                  </td>
-                  <td class="text-center">
-                    <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
-                    <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
-                  </td>
-                </tr>
-                <tr style="height: 3.5em;">
-                  <td class="text-center">5</td>
-                  <td class="text-center">MA.005.KYB</td>
-                  <td class="text-center">Electrical</td>
-                  <td class="text-center">
-                    <div class="star_yellow" style="width: 15px; height: 15px; background-color: #ffcc00; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: inline-block;"></div>
-                  </td>
-                  <td class="text-center">
-                    <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
-                    <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
-                  </td>
-                </tr>
+                <script>
+                  const findings = [
+                    {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 5},
+                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 4},
+                    {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 3},
+                    {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 2},
+                    {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 1}
+                  ];
+
+                  findings.forEach(finding => {
+                    document.write(`
+                      <tr style="height: 3.5em;">
+                        <td class="text-center">${finding.rank}</td>
+                        <td class="text-center">${finding.id}</td>
+                        <td class="text-center">${finding.type}</td>
+                        <td class="text-center">
+                          <div class="d-flex justify-content-center">
+                            ${Array(finding.rating).fill().map(() => `
+                              <i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>
+                            `).join('')}
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <i class="fas fa-eye text-primary" style="cursor: pointer; margin-right: 10px;"></i>
+                          <i class="fas fa-edit text-success" style="cursor: pointer;"></i>
+                        </td>
+                      </tr>
+                    `);
+                  });
+                </script>
               </tbody>
             </table>
           </div>
