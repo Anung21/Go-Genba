@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machining Interface</title>
+  <!-- Bootstrap and Font Awesome CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Star icon styles with size and display properties */
+    .star_green, .star_red, .legend_layoff5, .legend_scw, .legend_development {
+      font-size: 15px;
+      display: inline-block;
+    }
+    /* Color definitions for different star types */
+    .star_yellow { color: #ffcc00; }
+    /* .star_red { color: red; } */
+    /* .legend_layoff5 { color: #ffcc00; } */
+    /* .legend_scw { color: #00ccff; } */
+    /* .legend_development { color: #cc00ff; } */
+
+    /* Hover animation effects for star icons */
+    .star_green:hover, .star_red:hover, .legend_layoff5:hover, .legend_scw:hover, .legend_development:hover {
+      transform: scale(1.2);
+      transition: transform 0.2s ease;
+    }
+
+    /* Table row hover effect */
+    .table-striped tbody tr:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    /* Card hover shadow effect */
+    .card:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: box-shadow 0.3s ease;
+    }
+
+    /* Success button hover colors */
+    .btn-success:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+
+    /* Body background color */
+    body {
+      background: #ebe7e7;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main container -->
+  <div class="container-fluid">
+    <!-- Layout row -->
+    <div class="row m-2">
+      <!-- Left column - Layout display -->
+      <div class="col-xl-8 col-md-12 col-sm-12">
+        <div class="card" style="border-radius: 20px; border-color: #87c7f4;">
+            <div style="background-image: url('asset/layout.png'); background-size: 1150px; background-position: 6% 10px; background-repeat: no-repeat; height: 55rem; width: 120rem; position: relative;">
+                <!-- Machine location markers -->
+                <!-- Toyoda Line -->
+                <div style="position: absolute; top: 535px; left: 820px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.TOY')"></i>
+                </div>
+                <div style="position: absolute; top: 535px; left: 670px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.002.TOY')"></i>
+                </div>
+                <div style="position: absolute; top: 535px; left: 590px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.003.TOY')"></i>
+                </div>
+                <div style="position: absolute; top: 535px; left: 530px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.004.TOY')"></i>
+                </div>
+                <div style="position: absolute; top: 460px; left: 590px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.005.TOY')"></i>
+                </div>
+                <div style="position: absolute; top: 460px; left: 530px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.006.TOY')"></i>
+                </div>
+
+                <!-- Still Random -->
+                <div style="position: absolute; top: 705px; left: 1030px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.002.AIS')"></i>
+                </div>
+                <div style="position: absolute; top: 745px; left: 1030px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.AIS')"></i>
+                </div>
+                <div style="position: absolute; top: 745px; left: 1115px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.006.HIN')"></i>
+                </div>
+                <div style="position: absolute; top: 745px; left: 1090px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.KAW')"></i>
+                </div>
+                <div style="position: absolute; top: 745px; left: 1060px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.ADM')"></i>
+                </div>
+                <div style="position: absolute; top: 790px; left: 1090px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.003.KYB')"></i>
+                </div>
+                <div style="position: absolute; top: 825px; left: 1090px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.041.AHM')"></i>
+                </div>
+                <div style="position: absolute; top: 745px; left: 1000px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.SUZ')"></i>
+                </div>
+                <!-- <div style="position: absolute; top: 190px; left: 290px;">
+                    <i class="fa-solid fa-star star_yellow" /* onclick="showMachineDetails('MA.004.KUB')" */></i>
+                </div> -->
+                <div style="position: absolute; top: 270px; left: 290px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.002.SUZ')"></i>
+                </div>
+                <div style="position: absolute; top: 330px; left: 250px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.002.KUB')"></i>
+                </div>
+                <div style="position: absolute; top: 360px; left: 250px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.KUB')"></i>
+                </div>
+                <div style="position: absolute; top: 345px; left: 290px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.003.KUB')"></i>
+                </div>
+
+                <!-- Line HPM -->
+                <div style="position: absolute; top: 630px; left: 880px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.001.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 550px; left: 880px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.002.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 500px; left: 880px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.003.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 440px; left: 880px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.004.HPM')"></i>
+                </div>
+
+                <!-- Line HPM bagian ke 2 -->
+                <div style="position: absolute; top: 440px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.005.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 472px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.006.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 500px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.007.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 525px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.008.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 550px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.009.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 575px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.010.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 630px; left: 935px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.011.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 530px; left: 1010px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.012.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 500px; left: 1010px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.013.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 470px; left: 1010px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.014.HPM')"></i>
+                </div>
+                <div style="position: absolute; top: 440px; left: 1010px;">
+                    <i class="fa-solid fa-star star_yellow" onclick="showMachineDetails('MA.015.HPM')"></i>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- Right column - Charts and tables -->
+      <div class="col-xl-4 col-md-12 col-sm-12">
+        <!-- Charts card -->
+        <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4;">
+          <div class="card-body d-flex justify-content-center">
+            <div class="row">
+              <div class="col">
+                <!-- Placeholder for cluster chart -->
+                <div style="width: 200px; height: 200px; background: #ccc;"></div>
+              </div>
+              <div class="col">
+                <!-- Achievement Chart Placeholder -->
+                <div style="width: 200px; height: 200px; background: #ccc;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; min-height: 16.2em; max-height: 16.2em; overflow: auto;">
+          <div class="card-body">
+            <div class="fs-5 p-2 fw-semibold" style="border-bottom: 5px solid #bcbcbc;">LINE WITH DOWNTIME</div>
+            <table class="table table-striped" style="font-size: 0.8em;">
+              <thead>
+                <tr>
+                  <th scope="col">LINE</th>
+                  <th scope="col">PART NAME</th>
+                  <th scope="col">DOWNTIME</th>
+                  <th scope="col" class="text-center">TIME (min)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="showDetails('MA.001.TOY')">
+                  <td>MA.001.TOY</td>
+                  <td>Part A</td>
+                  <td>Mechanical</td>
+                  <td class="text-center">90.0</td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; min-height: 16.2em; max-height: 16.2em; overflow: auto;">
+          <div class="card-body">
+            <div class="fs-5 p-2 fw-semibold" style="border-bottom: 5px solid #bcbcbc;">LINE WITH UNDER PERFORMANCE</div>
+            <table class="table table-striped" style="font-size: 0.8em;">
+              <thead>
+                <tr>
+                  <th>LINE</th>
+                  <th>PART NAME</th>
+                  <th class="text-center">OK</th>
+                  <th class="text-center">TARGET</th>
+                  <th class="text-center">NG</th>
+                  <th class="text-center">DT (min)</th>
+                  <th class="text-center">ACHIEVEMENT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="showDetails('MA.002.TOY')">
+                  <td>MA.002.TOY</td>
+                  <td>Part B</td>
+                  <td class="text-center">80</td>
+                  <td class="text-center">100</td>
+                  <td class="text-center">5</td>
+                  <td class="text-center">45.0</td>
+                  <td class="text-center fw-bold">80.0%</td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row m-2">
+      <div class="col">
+        <div class="card p-3" style="border-radius: 20px; border-color: #87c7f4;">
+          <div class="d-flex justify-content-between">
+            <div class="align-left w-50">
+              <div class="row">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                  <i class="fas fa-circle star_green m-2"></i>
+                  <span>Running</span>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                  <i class="fas fa-circle star_red m-2"></i>
+                  <span>Downtime</span>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                  <i class="fas fa-circle legend_layoff5 m-2"></i>
+                  <span>Layoff</span>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                  <i class="fas fa-circle legend_scw m-2"></i>
+                  <span>SCW</span>
+                </div>
+                <div class="col-3 d-flex justify-content-center align-items-center">
+                  <i class="fas fa-circle legend_development m-2"></i>
+                  <span>Under Development</span>
+                </div>
+                <div class="col-1 d-flex justify-content-center align-items-center">
+                  <div style="max-width: 15px; min-height: 20px;">
+                    <i class="fas fa-flag" style="color: red;"></i>
+                  </div>
+                  <span>URGENT</span>
+                </div>
+              </div>
+            </div>
+            <div class="align-right">
+              <div class="row">
+                <div class="col mx-3">
+                  <a href="/all" class="btn btn-success fw-semibold" style="cursor: pointer;">CARD VIEW</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
+
