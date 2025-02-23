@@ -255,35 +255,35 @@
         <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4; border-width: 2px; border-style: solid;">
           <div class="card-body">
             <div class="row">
-              <!-- Left column - Rating display -->
-              <div class="col-12 col-sm-6 mb-4 mb-sm-0">
+              <!-- GARIS PENENGAH-->
+              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 1px solid #000000;">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                   <div class="text-center mb-4" style="font-weight: bold; font-size: 18px;">ALL-LINE MACHINING</div>
                   <div class="d-flex flex-column align-items-center">
                     <div class="text-center mb-3">
                       <script>
-                        const rating = 4.5; // Using the displayed rating value
+                        const rating = 2.5; // Using the displayed rating value
                         const fullStars = Math.floor(rating);
                         const hasHalfStar = rating % 1 >= 0.5;
                         const totalStars = 5;
 
-                        document.write(`<span style="color: black; font-size: clamp(30px, 6vw, 65px); font-weight: bold;">${rating}</span>`);
+                        document.write(`<span style="color: black; font-size: clamp(30px, 6vw, 100px); font-weight: bold; margin-top: 40px; margin-bottom: 20px;">${rating}</span>`);
                         document.write('<div class="d-flex justify-content-center mt-2">');
 
                         // Generate full stars
                         for(let i = 0; i < fullStars; i++) {
-                          document.write(`<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 28px; margin: 0 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 25px; margin: 10px 6px;"></i>`);
                         }
 
                         // Add half star if needed
                         if(hasHalfStar) {
-                          document.write(`<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 28px; margin: 0 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 25px; margin: 10px 6px;"></i>`);
                         }
 
                         // Fill remaining with empty stars
                         const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0);
                         for(let i = 0; i < emptyStars; i++) {
-                          document.write(`<i class="fa-solid fa-star" style="color: #e0e0e0; font-size: 28px; margin: 0 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star" style="color: #e0e0e0; font-size: 25px; margin: 10px 6px;"></i>`);
                         }
 
                         document.write('</div>');
@@ -296,11 +296,11 @@
               <!-- Right column - Top 5 table -->
               <div class="col-12 col-sm-6">
                 <div class="d-flex flex-column">
-                  <div class="text-center mb-3" style="font-weight: bold;">TOP 5</div>
+                  <div class="text-center mb-3" style="font-weight: bold;">TOP 5 TEMUAN</div>
                   <div class="table-responsive">
-                    <table class="table table-borderless" style="font-size: clamp(12px, 2vw, 14px);">
+                    <table class="table table-striped">
                       <thead>
-                        <tr>
+                        <tr style="background-color: #f8f9fa;">
                           <th class="text-center" style="width: 15%;">No</th>
                           <th class="text-center" style="width: 50%;">Nama</th>
                           <th class="text-center" style="width: 35%;">Rate</th>
@@ -309,23 +309,42 @@
                       <tbody>
                         <script>
                           const topMachines = [
-                            {rank: 1, id: 'MA.006.HIN', rating: 4.9},
-                            {rank: 2, id: 'MA.005.TOY', rating: 4.8}, 
-                            {rank: 3, id: 'MA.003.TOY', rating: 4.7},
-                            {rank: 4, id: 'MA.002.KYB', rating: 4.6},
-                            {rank: 5, id: 'MA.002.AIS', rating: 4.6}
+                            {rank: 1, id: 'MA.006.HIN', rating: 5},
+                            {rank: 2, id: 'MA.005.TOY', rating: 3.5}, 
+                            {rank: 3, id: 'MA.003.TOY', rating: 3},
+                            {rank: 4, id: 'MA.002.KYB', rating: 1.5},
+                            {rank: 5, id: 'MA.002.AIS', rating: 1}
                           ];
 
-                          topMachines.forEach(machine => {
+                          topMachines.forEach((machine, index) => {
+                            const fullStars = Math.floor(machine.rating);
+                            const hasHalfStar = machine.rating % 1 >= 0.5;
+                            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                            
+                            let starsHtml = '';
+                            
+                            // Add full stars
+                            for(let i = 0; i < fullStars; i++) {
+                              starsHtml += '<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                            }
+                            
+                            // Add half star if needed
+                            if(hasHalfStar) {
+                              starsHtml += '<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                            }
+                            
+                            // Add empty stars
+                            for(let i = 0; i < emptyStars; i++) {
+                              starsHtml += '<i class="fa-regular fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                            }
+
                             document.write(`
-                              <tr>
+                              <tr style="background-color: ${index % 2 === 0 ? '#ffffff' : '#f8f9fa'};">
                                 <td class="text-center">${machine.rank}</td>
                                 <td class="text-center">${machine.id}</td>
                                 <td class="text-center" style="white-space: nowrap;">
                                   <div class="d-flex justify-content-center">
-                                    ${Array(5).fill().map(() => `
-                                      <i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>
-                                    `).join('')}
+                                    ${starsHtml}
                                   </div>
                                 </td>
                               </tr>
@@ -357,13 +376,15 @@
                 <script>
                   const findings = [
                     {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 5},
-                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 4},
+                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 3}, 
                     {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 3},
                     {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 2},
                     {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 1}
                   ];
 
                   findings.forEach(finding => {
+                    const stars = Array(finding.rating).fill('<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>').join('');
+                    
                     document.write(`
                       <tr style="height: 3.5em;">
                         <td class="text-center">${finding.rank}</td>
@@ -371,9 +392,7 @@
                         <td class="text-center">${finding.type}</td>
                         <td class="text-center">
                           <div class="d-flex justify-content-center">
-                            ${Array(finding.rating).fill().map(() => `
-                              <i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>
-                            `).join('')}
+                            ${stars}
                           </div>
                         </td>
                         <td class="text-center">
