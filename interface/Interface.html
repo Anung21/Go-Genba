@@ -8,6 +8,8 @@
   <!-- Bootstrap and Font Awesome CSS -->
   <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="fontawesome-free-6.7.2-web/css/all.min.css">
+  <script src="Chart.js-4.4.8/Chart.min.js"></script>
+  <script src="cdn/jquery-3.7.1.min.js"></script>
   <style>
     /* Base font size for responsive calculations */
     html {
@@ -114,6 +116,13 @@
 
 </head>
 <body>
+  <!-- Header -->
+  <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #ccc; height: 60px;">
+    <img src="logo.png" alt="Logo Astra Otoparts" style="height: 40px;">
+    <div style="flex-grow: 1; display: flex; justify-content: center;">
+      <h1 style="font-size: 18px; font-weight: bold; color: #333; margin: 0;">LINE PRODUCTION CONDITION</h1>
+    </div>
+  </header>
   <!-- Main container -->
   <div class="container-fluid">
     <!-- Layout row -->
@@ -243,6 +252,7 @@
                         {top: 420, left: 130, id: 'MA.002.KYB', rating: 4.2}
                     ];
                     machineLocations.forEach(machine => {
+                //      console.log(machine.id);
                         document.write(`
                             <div style="position: absolute; top: ${machine.top}px; left: ${machine.left}px;">
                                 <div class="star_yellow text-center" style="width: 20px; height: 20px; color: #ffcc00; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="showMachineDetails('${machine.id}')">
@@ -349,7 +359,7 @@
                             document.write(`
                               <tr style="background-color: ${index % 2 === 0 ? '#ffffff' : '#f8f9fa'};">
                                 <td class="text-center">${machine.rank}</td>
-                                <td class="text-center">${machine.id}</td>
+                                <td class="text-center">${machine.Id}</td>
                                 <td class="text-center" style="white-space: nowrap;">
                                   <div class="d-flex justify-content-center">
                                     ${starsHtml}
@@ -436,53 +446,54 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row m-2"> // mau dihapus
-      <div class="col">
-        <div class="card p-3" style="border-radius: 20px; border-color: #87c7f4;">
-          <div class="d-flex justify-content-between">
-            <div class="align-left w-50">
-              <div class="row">
-                <div class="col-2 d-flex justify-content-center align-items-center">
-                  <i class="fas fa-circle star_green m-2"></i>
-                  <span>Running</span>
-                </div>
-                <div class="col-2 d-flex justify-content-center align-items-center">
-                  <i class="fas fa-circle star_red m-2"></i>
-                  <span>Downtime</span>
-                </div>
-                <div class="col-2 d-flex justify-content-center align-items-center">
-                  <i class="fas fa-circle legend_layoff5 m-2"></i>
-                  <span>Layoff</span>
-                </div>
-                <div class="col-2 d-flex justify-content-center align-items-center">
-                  <i class="fas fa-circle legend_scw m-2"></i>
-                  <span>SCW</span>
-                </div>
-                <div class="col-3 d-flex justify-content-center align-items-center">
-                  <i class="fas fa-circle legend_development m-2"></i>
-                  <span>Under Development</span>
-                </div>
-                <div class="col-1 d-flex justify-content-center align-items-center">
-                  <div style="max-width: 15px; min-height: 20px;">
-                    <i class="fas fa-flag" style="color: red;"></i>
-                  </div>
-                  <span>URGENT</span>
-                </div>
-              </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="lineModal" tabindex="-1" aria-labelledby="lineModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lineModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart-container" style="position: relative; height: 300px;">
+              <canvas id="lineChart"></canvas>
             </div>
-            <div class="align-right">
-              <div class="row">
-                <div class="col mx-3">
-                  <a href="/all" class="btn btn-success fw-semibold" style="cursor: pointer;">CARD VIEW</a>
-                </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container" style="position: relative; height: 300px;">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-outline-primary" id="infoBtn">Informasi</button>
+              <button class="btn btn-outline-primary" id="photoBtn">Foto</button>
+              <button class="btn btn-outline-primary" id="reviewBtn">Ulasan</button>
+            </div>
+            <div class="mt-3">
+              <div class="d-flex align-items-center">
+                <div class="h3 mb-0 me-2" id="avgRating">0.0</div>
+                <div class="text-warning h4 mb-0 me-2" id="starRating"></div>
+                <div class="text-muted" id="totalReviews">(0 Temuan)</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
-  <script src="scripts.js"></script>
+</div>
+
+
+<script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+<script src="scripts.js"></script> 
 </body>
 </html>
 
