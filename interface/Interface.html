@@ -63,15 +63,13 @@
 
     @keyframes dissolve {
       0% {
-        opacity: 0;
-        transform: scale(0.9);
+          opacity: 0;
       }
       100% {
-        opacity: 1;
-        transform: scale(1);
+          opacity: 1;
       }
-    }
-
+  }
+  
     /* Responsive adjustments */
     @media (min-width: 1920px) {
         html {
@@ -199,7 +197,7 @@
         {top: 365, left: 505, id: 'MA.025.AHM', rating: 4.7},
         {top: 365, left: 460, id: 'MA.026.AHM', rating: 4.5},
         {top: 365, left: 420, id: 'MA.027.AHM', rating: 4.3},
-        {top: 335, left: 335, id: 'MA.028.AHM', rating: 4.8},
+        {top: 335, left: 335, id: 'MA.040.AHM', rating: 4.8},
         {top: 365, left: 335, id: 'MA.029.AHM', rating: 4.4},
         {top: 460, left: 190, id: 'MA.030.AHM', rating: 4.6},
         {top: 460, left: 230, id: 'MA.031.AHM', rating: 4.2},
@@ -241,7 +239,7 @@
         if (!machine) return;
 
         // Set modal title
-        document.getElementById('machineModalLabel').textContent = `Details for ${machine.id}`;
+        document.getElementById('machineModalLabel').textContent = `LINE-${machine.id}`;
 
         // Initialize or update pie chart
         try {
@@ -263,7 +261,7 @@
 
         // Update star rating
         const starRatingBox = document.getElementById('starRatingBox');
-        starRatingBox.innerHTML = `<h3>Rating: ${machine.rating}</h3>`;
+        starRatingBox.innerHTML = `<h3>${machine.rating}</h3>`;
         for (let i = 1; i <= 5; i++) {
             starRatingBox.innerHTML += `<span class="fa fa-star ${i <= machine.rating ? 'checked' : ''}"></span>`;
         }
@@ -531,32 +529,81 @@ new Chart(pieCtx, {
 <!-- Modal -->
 <div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content" style="animation: dissolve 0.6s ease-out;">
+    <div class="modal-content" style="animation: dissolve 0.6s linear; height: 650px; width: 1200px; border-radius: 15px;">
       <div class="modal-header">
-        <h5 class="modal-title" id="machineModalLabel">Machine Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="machineModalLabel" style="font-size: 35px; line-height: 1.5;">Machine Details</h5>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close" style="background-color: white; border-radius: 12px; width: 50px; height: 50px; 
+           border: 4px solid red; display: flex; align-items: center; 
+           justify-content: center; font-size: 32px; color: red; font-weight: bold; margin-left: auto;">&times;
+        </button>
+
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <canvas id="pieChart"></canvas> <!-- Pie Chart -->
-          </div>
-          <div class="col-md-6">
-            <div id="starRatingBox">
-              <!-- Star rating will be filled here -->
+        <div id="machineCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div class="col-md-6">
+                  <canvas id="pieChart"></canvas> <!-- Pie Chart -->
+                </div>
+                <div class="col-md-6">
+                  <canvas id="barChart"></canvas> <!-- Bar Chart -->
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="p-4">
+                <h3>Informasi Mesin</h3>
+                <p>Detail informasi tentang spesifikasi dan kinerja mesin...</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="p-4">
+                <h3>Foto Mesin</h3>
+                <img src="machine.jpg" alt="Machine Photo" class="img-fluid">
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="p-4">
+                <h3>Ulasan Mesin</h3>
+                <p>Review dan penilaian dari pengguna mesin...</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12">
-            <button class="btn btn-info" id="infoBtn">Informasi</button>
-            <button class="btn btn-info" id="photoBtn">Foto</button>
-            <button class="btn btn-info" id="reviewBtn">Ulasan</button>
-          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#machineCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#machineCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
+        <div class="d-flex justify-content-center align-items-center mt-4" style="margin: 0 100px 30px; gap: 250px;">
+          <a href="/informasi" id="infoBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Informasi</a>
+          <a href="/foto" id="photoBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Foto</a>
+          <a href="/ulasan" id="reviewBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Ulasan</a>
+        </div>
+        <!-- modal footer-->
+          <div class="modal-footer" style="display: flex; justify-content: left; align-items: center; margin-left: 85px; margin-top: 4px; margin-right: 100px;">
+            <div id="starRatingBox" style="display: flex; align-items: baseline; font-family: Arial, sans-serif; font-size: 50px; font-weight: bold; padding: 20px;">
+              <span id="ratingNumber" style="margin-right: 15px; font-size: 12px; line-height: 50px;">2.5</span>
+              <div id="starRating" style="display: flex; gap: 10px; align-items: center;">
+                  <span class="star" style="color: gold; font-size: 48px; width: 48px; height: 48px;">&#9733;</span>
+                  <span class="star" style="color: gold; font-size: 48px; width: 48px; height: 48px;">&#9733;</span>
+                  <span class="star" style="position: relative; color: gold; font-size: 48px; width: 48px; height: 48px;">
+                      &#9733;
+                      <span style="position: absolute; color: lightgray; width: 50%; overflow: hidden; left: 0; top: 0;">&#9733;</span>
+                  </span>
+                  <span class="star" style="color: lightgray; font-size: 48px; width: 48px; height: 48px;">&#9733;</span>
+                  <span class="star" style="color: lightgray; font-size: 48px; width: 48px; height: 48px;">&#9733;</span>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
+
 </div>
 <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="scripts.js"></script> 
