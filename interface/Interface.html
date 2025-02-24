@@ -351,7 +351,8 @@ new Chart(pieCtx, {
             <div class="row">
 
               <!-- GARIS PENENGAH-->
-              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 2px solid #bcbcbc; height: 400px;">
+              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 6px solid #bcbcbc; height: 400px;">
+                <!-- Card 1 all line machining/top 5 rating line-->
                 <div class="d-flex flex-column align-items-center justify-content-center">
                   <div class="text-center mb-4" style="font-weight: bold; font-size: 20px;">ALL-LINE MACHINING</div>
                   <div class="d-flex flex-column align-items-center">
@@ -388,6 +389,7 @@ new Chart(pieCtx, {
                 </div>
               </div>
 
+              <!-- top 5 rating line -->
               <!-- Right column - Top 5 table -->
               <div class="col-12 col-sm-6">
                 <div class="d-flex flex-column">
@@ -454,6 +456,8 @@ new Chart(pieCtx, {
             </div>
           </div>
         </div>
+
+        <!-- top 5 TEMUAN -->
         <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; height: 430px; overflow: auto;">
           <div class="card-body">
             <div class="fs-5 p-2 fw-bold" style="border-bottom: 5px solid #bcbcbc; height: 3em; font-size: 15px;">TOP 5 TEMUAN</div>
@@ -537,6 +541,8 @@ new Chart(pieCtx, {
            justify-content: center; font-size: 32px; color: red; font-weight: bold; margin-left: auto;">&times;
         </button> -->
       </div>
+
+      <!-- Carousel -->
       <div class="modal-body">
         <div id="machineCarousel" class="carousel slide">
           <div class="carousel-inner">
@@ -552,19 +558,40 @@ new Chart(pieCtx, {
             </div>
             <div class="carousel-item info-carousel">
               <div class="p-4">
-                <h3>Informasi Mesin</h3>
-                <p>Detail informasi tentang spesifikasi dan kinerja mesin...</p>
+                <h2 style="margin-bottom: 20px;">INFORMASI LINE</h2>
+                <h4>Line LINE-MA.001.SUZ adalah, line yang masuk ke dalam cluster ENGGINE AHM dimana produksinya yaitu produksi SWING ARM</h4>
               </div>
             </div>
             <div class="carousel-item photo-carousel">
               <div class="p-4">
-                <h3>Foto Mesin</h3>
-                <img src="machine.jpg" alt="Machine Photo" class="img-fluid">
+                <h2 style="margin-bottom: 20px;">FOTO</h2>
+                <div class="row">
+                  <div class="col-md-4 border-end border-dark p-3">
+                    <img src="" alt="Machine Photo 1" class="img-fluid">
+                  </div>
+                  <div class="col-md-4 border-end border-dark p-3">
+                    <img src="" alt="Machine Photo 2" class="img-fluid">
+                  </div>
+                  <div class="col-md-4 p-3">
+                    <img src="" alt="Machine Photo 3" class="img-fluid">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-4 border-end border-dark p-3">
+                    <img src="" alt="Machine Photo 4" class="img-fluid">
+                  </div>
+                  <div class="col-md-4 border-end border-dark p-3">
+                    <img src="" alt="Machine Photo 5" class="img-fluid">
+                  </div>
+                  <div class="col-md-4 p-3">
+                    <img src="" alt="Machine Photo 6" class="img-fluid">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="carousel-item review-carousel">
               <div class="p-4">
-                <h3>Ulasan Mesin</h3>
+                <h2 style="margin-bottom: 20px;">Ulasan Mesin</h2>
                 <p>Review dan penilaian dari pengguna mesin...</p>
               </div>
             </div>
@@ -580,13 +607,16 @@ new Chart(pieCtx, {
           });
         </script>
       </div>
+
+      <!-- Button -->
       <div class="d-flex justify-content-center align-items-center mt-4" style="margin: 0 100px 20px; gap: 250px;">
-        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold info-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="1">Informasi</button>
-        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold photo-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="2">Foto</button>
-        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold review-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="3">Ulasan</button>
+        <button type="button" class="btn btn-outline-primary py-3 px-5 rounded-pill fw-semibold info-btn" style="font-size: 20px; border-bottom: 5px solid hsl(198, 72%, 48%);" data-bs-target="#machineCarousel" data-bs-slide-to="1">Informasi</button>
+        <button type="button" class="btn btn-outline-primary py-3 px-5 rounded-pill fw-semibold photo-btn" style="font-size: 20px; border-bottom: 5px solid hsl(198, 72%, 48%);" data-bs-target="#machineCarousel" data-bs-slide-to="2">Foto</button>
+        <button type="button" class="btn btn-outline-primary py-3 px-5 rounded-pill fw-semibold review-btn" style="font-size: 20px; border-bottom: 5px solid hsl(198, 72%, 48%)" data-bs-target="#machineCarousel" data-bs-slide-to="3">Ulasan</button>
       </div>
         <!-- modal footer-->
-          <div class="modal-footer" style="display: flex; justify-content: left; align-items: center; margin-left: 85px; margin-top: 4px; margin-right: 100px; border-top: 4px solid #9e9e9c;">
+         <!-- rating -->
+          <div class="modal-footer" style="display: flex; justify-content: left; align-items: center; margin-left: 0; margin-top: 4px; margin-right: 0; border-top: 4px solid #9e9e9c; width: 100%;">
             <div id="starRatingBox" style="display: flex; align-items: baseline; font-family: Arial, sans-serif; font-size: 50px; font-weight: bold; padding: 20px;">
               <span id="ratingNumber" style="margin-right: 15px; font-size: 12px; line-height: 50px;">2.5</span>
               <div id="starRating" style="display: flex; gap: 10px; align-items: center;">
@@ -608,11 +638,3 @@ new Chart(pieCtx, {
 <script src="scripts.js"></script> 
 </body>
 </html>
-
-<!-- // -->
-
-<!-- // -->
-
-<!-- // -->
-
-<!-- // -->
