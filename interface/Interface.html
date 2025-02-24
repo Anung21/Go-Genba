@@ -7,7 +7,7 @@
   <title>Machining Interface</title>
   <!-- Bootstrap and Font Awesome CSS -->
   <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="fontawesome-free-6.7.2-web/css/all.min.css">
   <style>
     /* Base font size for responsive calculations */
     html {
@@ -119,11 +119,19 @@
     <!-- Layout row -->
     <div class="row m-2">
       <!-- Left column - Layout display -->
-       
       <div class="col-xl-8 col-md-12 col-sm-12">
         <div class="card" style="border-radius: 20px; border-color: #87c7f4;">
-            <div class="layout-container" style="background-image: url('asset/layout.png'); background-size: 1150px; background-position: 6% 10px; background-repeat: no-repeat; height: 55rem; width: 120rem; position: relative;">
-                <script>
+          <div class="layout-container" 
+          style="
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/interface/asset/layout.webp');
+            background-size: 1150px;
+            background-position: 6% 10px;
+            background-repeat: no-repeat;
+            height: 55rem; 
+            width: 120rem; 
+            position: relative;
+          ">    
+              <script>
                     const machineLocations = [
                         // Toyoda Line
                         {top: 535, left: 820, id: 'MA.001.TOY', rating: 4.5},
@@ -238,8 +246,8 @@
                         document.write(`
                             <div style="position: absolute; top: ${machine.top}px; left: ${machine.left}px;">
                                 <div class="star_yellow text-center" style="width: 20px; height: 20px; color: #ffcc00; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="showMachineDetails('${machine.id}')">
-                                    <i class="fa-solid fa-star" style="font-size: 27px; position: relative; font-weight: bold;">
-                                        <span style="color: black; font-size: 8px; font-weight: bold; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="text-center">${machine.rating}</span>
+                                    <i class="fa-solid fa-star" style="font-size: 25px; position: relative; font-weight: bold; -webkit-text-stroke: 1px black; text-stroke: 1px black;">
+                                        <span style="color: black; font-size: 8px; font-weight: bold; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); -webkit-text-stroke: 0; text-stroke: 0;" class="text-center">${machine.rating}</span>
                                     </i>
                                 </div>
                             </div>
@@ -296,7 +304,7 @@
               <!-- Right column - Top 5 table -->
               <div class="col-12 col-sm-6">
                 <div class="d-flex flex-column">
-                  <div class="text-center mb-3" style="font-weight: bold;">TOP 5 TEMUAN</div>
+                  <div class="text-center mb-3" style="font-weight: bold;">TOP 5 RATING LINE</div>
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
@@ -375,15 +383,34 @@
               <tbody>
                 <script>
                   const findings = [
-                    {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 5},
-                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 3}, 
-                    {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 3},
-                    {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 2},
-                    {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 1}
+                    {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 1},
+                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 1.5}, 
+                    {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 2},
+                    {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 4.5},
+                    {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 5}
                   ];
 
                   findings.forEach(finding => {
-                    const stars = Array(finding.rating).fill('<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>').join('');
+                    let starsHtml = '';
+                    const rating = finding.rating;
+                    const fullStars = Math.floor(rating);
+                    const hasHalfStar = rating % 1 !== 0;
+                    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                    // Add full stars
+                    for(let i = 0; i < fullStars; i++) {
+                      starsHtml += '<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                    }
+                    
+                    // Add half star if needed
+                    if(hasHalfStar) {
+                      starsHtml += '<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                    }
+                    
+                    // Add empty stars
+                    for(let i = 0; i < emptyStars; i++) {
+                      starsHtml += '<i class="fa-regular fa-star" style="color: #ffcc00; font-size: 15px; margin: 0 1px;"></i>';
+                    }
                     
                     document.write(`
                       <tr style="height: 3.5em;">
@@ -392,7 +419,7 @@
                         <td class="text-center">${finding.type}</td>
                         <td class="text-center">
                           <div class="d-flex justify-content-center">
-                            ${stars}
+                            ${starsHtml}
                           </div>
                         </td>
                         <td class="text-center">
@@ -409,7 +436,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row m-2">
+    <!-- <div class="row m-2"> // mau dihapus
       <div class="col">
         <div class="card p-3" style="border-radius: 20px; border-color: #87c7f4;">
           <div class="d-flex justify-content-between">
