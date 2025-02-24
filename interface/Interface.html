@@ -61,6 +61,17 @@
         margin: 0 auto;
     }
 
+    @keyframes dissolve {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     /* Responsive adjustments */
     @media (min-width: 1920px) {
         html {
@@ -113,7 +124,184 @@
         }
     }
   </style>
+  <script>
+    const machineLocations = [
+        // Totoyota Line
+        {top: 535, left: 820, id: 'MA.001.TOY', rating: 4.5},
+        {top: 535, left: 670, id: 'MA.002.TOY', rating: 4.2}, 
+        {top: 535, left: 590, id: 'MA.003.TOY', rating: 4.7},
+        {top: 535, left: 530, id: 'MA.004.TOY', rating: 4.1},
+        {top: 460, left: 590, id: 'MA.005.TOY', rating: 4.8},
+        {top: 460, left: 530, id: 'MA.006.TOY', rating: 4.3},
 
+        // Still Random
+        {top: 705, left: 1030, id: 'MA.002.AIS', rating: 4.6},
+        {top: 745, left: 1030, id: 'MA.001.AIS', rating: 4.4},
+        {top: 745, left: 1115, id: 'MA.006.HIN', rating: 4.9},
+        {top: 745, left: 1090, id: 'MA.001.KAW', rating: 4.2},
+        {top: 745, left: 1060, id: 'MA.001.ADM', rating: 4.7},
+        {top: 790, left: 1090, id: 'MA.003.KYB', rating: 4.5},
+        {top: 825, left: 1090, id: 'MA.041.AHM', rating: 4.3},
+        {top: 745, left: 1000, id: 'MA.001.SUZ', rating: 4.8},
+        {top: 270, left: 290, id: 'MA.002.SUZ', rating: 4.6},
+        {top: 330, left: 250, id: 'MA.002.KUB', rating: 4.2},
+        {top: 360, left: 250, id: 'MA.001.KUB', rating: 4.7},
+        {top: 345, left: 290, id: 'MA.003.KUB', rating: 4.5},
+
+        // Line HPM
+        {top: 630, left: 880, id: 'MA.001.HPM', rating: 4.3},
+        {top: 550, left: 880, id: 'MA.002.HPM', rating: 4.8},
+        {top: 500, left: 880, id: 'MA.003.HPM', rating: 4.4},
+        {top: 440, left: 880, id: 'MA.004.HPM', rating: 4.6},
+
+        // Line HPM bagian ke 2
+        {top: 440, left: 935, id: 'MA.005.HPM', rating: 4.2},
+        {top: 472, left: 935, id: 'MA.006.HPM', rating: 4.7},
+        {top: 500, left: 935, id: 'MA.007.HPM', rating: 4.5},
+        {top: 525, left: 935, id: 'MA.008.HPM', rating: 4.3},
+        {top: 550, left: 935, id: 'MA.009.HPM', rating: 4.8},
+        {top: 575, left: 935, id: 'MA.010.HPM', rating: 4.4},
+        {top: 630, left: 935, id: 'MA.011.HPM', rating: 4.6},
+        {top: 530, left: 1010, id: 'MA.012.HPM', rating: 4.2},
+        {top: 500, left: 1010, id: 'MA.013.HPM', rating: 4.7},
+        {top: 470, left: 1010, id: 'MA.014.HPM', rating: 4.5},
+        {top: 440, left: 1010, id: 'MA.015.HPM', rating: 4.3},
+
+        {top: 95, left: 290, id: 'MA.001.MII', rating: 4.8},
+
+        // Line Denso
+        {top: 660, left: 1010, id: 'MA.001.DEN', rating: 4.4},
+        {top: 620, left: 1010, id: 'MA.002.DEN', rating: 4.6},
+
+        // Line EV Series
+        {top: 360, left: 880, id: 'MA.001.EMI', rating: 4.2},
+        {top: 295, left: 880, id: 'MA.002.EMI', rating: 4.7},
+        {top: 265, left: 880, id: 'MA.003.EMI', rating: 4.5},
+        // Cover L Series AHM
+        {top: 95, left: 825, id: 'MA.001.AHM', rating: 4.4},
+        {top: 95, left: 750, id: 'MA.003.AHM', rating: 4.2},
+        {top: 95, left: 690, id: 'MA.004.AHM', rating: 4.7},
+        {top: 165, left: 690, id: 'MA.010.AHM', rating: 4.5},
+        {top: 95, left: 600, id: 'MA.005.AHM', rating: 4.3},
+        {top: 95, left: 530, id: 'MA.006.AHM', rating: 4.8},
+        {top: 95, left: 450, id: 'MA.008.AHM', rating: 4.6},
+
+        {top: 95, left: 355, id: 'MA.013.AHM', rating: 4.7},
+
+        {top: 270, left: 660, id: 'MA.016.AHM', rating: 4.6},
+        {top: 270, left: 810, id: 'MA.018.AHM', rating: 4.7},
+        {top: 365, left: 810, id: 'MA.019.AHM', rating: 4.5},
+        {top: 365, left: 780, id: 'MA.020.AHM', rating: 4.3},
+        {top: 365, left: 750, id: 'MA.021.AHM', rating: 4.8},
+        {top: 365, left: 660, id: 'MA.022.AHM', rating: 4.4},
+        {top: 365, left: 570, id: 'MA.023.AHM', rating: 4.6},
+        {top: 335, left: 505, id: 'MA.024.AHM', rating: 4.2},
+        {top: 365, left: 505, id: 'MA.025.AHM', rating: 4.7},
+        {top: 365, left: 460, id: 'MA.026.AHM', rating: 4.5},
+        {top: 365, left: 420, id: 'MA.027.AHM', rating: 4.3},
+        {top: 335, left: 335, id: 'MA.028.AHM', rating: 4.8},
+        {top: 365, left: 335, id: 'MA.029.AHM', rating: 4.4},
+        {top: 460, left: 190, id: 'MA.030.AHM', rating: 4.6},
+        {top: 460, left: 230, id: 'MA.031.AHM', rating: 4.2},
+        {top: 460, left: 310, id: 'MA.032.AHM', rating: 4.7},
+        {top: 460, left: 360, id: 'MA.033.AHM', rating: 4.5},
+        {top: 460, left: 410, id: 'MA.034.AHM', rating: 4.3},
+        {top: 460, left: 455, id: 'MA.035.AHM', rating: 4.8},
+
+        {top: 530, left: 425, id: 'MA.036.AHM', rating: 4.4},
+        {top: 530, left: 330, id: 'MA.038.AHM', rating: 4.2},
+        {top: 530, left: 215, id: 'MA.039.AHM', rating: 4.7},
+        {top: 530, left: 240, id: 'MA.040.AHM', rating: 4.5},
+
+        // Hino
+        {top: 50, left: 700, id: 'MA.001.HIN', rating: 4.3},
+        {top: 50, left: 660, id: 'MA.002.HIN', rating: 4.8},
+        {top: 50, left: 625, id: 'MA.003.HIN', rating: 4.4},
+        {top: 50, left: 580, id: 'MA.004.HIN', rating: 4.6},
+        {top: 50, left: 520, id: 'MA.005.HIN', rating: 4.2},
+
+        // DNP
+        // MKM
+        {top: 50, left: 430, id: 'MA.001.MKM', rating: 4.5},
+
+        // KTB
+        {top: 50, left: 290, id: 'MA.001.KTB', rating: 4.3},
+        {top: 50, left: 250, id: 'MA.002.MKM', rating: 4.8},
+
+        // Lbow ADM
+        {top: 50, left: 190, id: 'MA.002.ADM', rating: 4.4},
+
+        // Kayaba
+        {top: 460, left: 130, id: 'MA.001.KYB', rating: 4.6},
+        {top: 420, left: 130, id: 'MA.002.KYB', rating: 4.2}
+    ];
+
+    function showMachineDetails(machineId) {
+        const machine = machineLocations.find(m => m.id === machineId);
+        if (!machine) return;
+
+        // Set modal title
+        document.getElementById('machineModalLabel').textContent = `Details for ${machine.id}`;
+
+        // Initialize or update pie chart
+        try {
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Operational', 'Maintenance', 'Idle'],
+                    datasets: [{
+                        label: 'Machine Status',
+                        data: [60, 30, 10], // Example data
+                        backgroundColor: ['green', 'orange', 'red']
+                    }]
+                }
+            });
+        } catch (error) {
+            console.error('Error initializing pie chart:', error);
+        }
+
+        // Update star rating
+        const starRatingBox = document.getElementById('starRatingBox');
+        starRatingBox.innerHTML = `<h3>Rating: ${machine.rating}</h3>`;
+        for (let i = 1; i <= 5; i++) {
+            starRatingBox.innerHTML += `<span class="fa fa-star ${i <= machine.rating ? 'checked' : ''}"></span>`;
+        }
+
+        // Show modal
+        const myModal = new bootstrap.Modal(document.getElementById('machineModal'), {
+            keyboard: false
+        });
+        myModal.show();
+    }
+
+    // Pie Chart Initialization
+const pieCtx = document.getElementById('pieChart').getContext('2d');
+new Chart(pieCtx, {
+  type: 'pie',
+  data: {
+    labels: ['Baik', 'Cukup', 'Perlu Perbaikan'],
+    datasets: [{
+      data: [65, 25, 10],
+      backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          boxWidth: 15,
+          padding: 20
+        }
+      }
+    }
+  }
+});
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -141,116 +329,6 @@
             position: relative;
           ">    
               <script>
-                    const machineLocations = [
-                        // Toyoda Line
-                        {top: 535, left: 820, id: 'MA.001.TOY', rating: 4.5},
-                        {top: 535, left: 670, id: 'MA.002.TOY', rating: 4.2}, 
-                        {top: 535, left: 590, id: 'MA.003.TOY', rating: 4.7},
-                        {top: 535, left: 530, id: 'MA.004.TOY', rating: 4.1},
-                        {top: 460, left: 590, id: 'MA.005.TOY', rating: 4.8},
-                        {top: 460, left: 530, id: 'MA.006.TOY', rating: 4.3},
-
-                        // Still Random
-                        {top: 705, left: 1030, id: 'MA.002.AIS', rating: 4.6},
-                        {top: 745, left: 1030, id: 'MA.001.AIS', rating: 4.4},
-                        {top: 745, left: 1115, id: 'MA.006.HIN', rating: 4.9},
-                        {top: 745, left: 1090, id: 'MA.001.KAW', rating: 4.2},
-                        {top: 745, left: 1060, id: 'MA.001.ADM', rating: 4.7},
-                        {top: 790, left: 1090, id: 'MA.003.KYB', rating: 4.5},
-                        {top: 825, left: 1090, id: 'MA.041.AHM', rating: 4.3},
-                        {top: 745, left: 1000, id: 'MA.001.SUZ', rating: 4.8},
-                        {top: 270, left: 290, id: 'MA.002.SUZ', rating: 4.6},
-                        {top: 330, left: 250, id: 'MA.002.KUB', rating: 4.2},
-                        {top: 360, left: 250, id: 'MA.001.KUB', rating: 4.7},
-                        {top: 345, left: 290, id: 'MA.003.KUB', rating: 4.5},
-
-                        // Line HPM
-                        {top: 630, left: 880, id: 'MA.001.HPM', rating: 4.3},
-                        {top: 550, left: 880, id: 'MA.002.HPM', rating: 4.8},
-                        {top: 500, left: 880, id: 'MA.003.HPM', rating: 4.4},
-                        {top: 440, left: 880, id: 'MA.004.HPM', rating: 4.6},
-
-                        // Line HPM bagian ke 2
-                        {top: 440, left: 935, id: 'MA.005.HPM', rating: 4.2},
-                        {top: 472, left: 935, id: 'MA.006.HPM', rating: 4.7},
-                        {top: 500, left: 935, id: 'MA.007.HPM', rating: 4.5},
-                        {top: 525, left: 935, id: 'MA.008.HPM', rating: 4.3},
-                        {top: 550, left: 935, id: 'MA.009.HPM', rating: 4.8},
-                        {top: 575, left: 935, id: 'MA.010.HPM', rating: 4.4},
-                        {top: 630, left: 935, id: 'MA.011.HPM', rating: 4.6},
-                        {top: 530, left: 1010, id: 'MA.012.HPM', rating: 4.2},
-                        {top: 500, left: 1010, id: 'MA.013.HPM', rating: 4.7},
-                        {top: 470, left: 1010, id: 'MA.014.HPM', rating: 4.5},
-                        {top: 440, left: 1010, id: 'MA.015.HPM', rating: 4.3},
-
-                        {top: 95, left: 290, id: 'MA.001.MII', rating: 4.8},
-
-                        // Line Denso
-                        {top: 660, left: 1010, id: 'MA.001.DEN', rating: 4.4},
-                        {top: 620, left: 1010, id: 'MA.002.DEN', rating: 4.6},
-
-                        // Line EV Series
-                        {top: 360, left: 880, id: 'MA.001.EMI', rating: 4.2},
-                        {top: 295, left: 880, id: 'MA.002.EMI', rating: 4.7},
-                        {top: 265, left: 880, id: 'MA.003.EMI', rating: 4.5},
-       // Cover L Series AHM
-                        {top: 95, left: 825, id: 'MA.001.AHM', rating: 4.4},
-                        {top: 95, left: 750, id: 'MA.003.AHM', rating: 4.2},
-                        {top: 95, left: 690, id: 'MA.004.AHM', rating: 4.7},
-                        {top: 165, left: 690, id: 'MA.010.AHM', rating: 4.5},
-                        {top: 95, left: 600, id: 'MA.005.AHM', rating: 4.3},
-                        {top: 95, left: 530, id: 'MA.006.AHM', rating: 4.8},
-                        {top: 95, left: 450, id: 'MA.008.AHM', rating: 4.6},
-
-                        {top: 95, left: 355, id: 'MA.013.AHM', rating: 4.7},
-
-                        {top: 270, left: 660, id: 'MA.016.AHM', rating: 4.6},
-                        {top: 270, left: 810, id: 'MA.018.AHM', rating: 4.7},
-                        {top: 365, left: 810, id: 'MA.019.AHM', rating: 4.5},
-                        {top: 365, left: 780, id: 'MA.020.AHM', rating: 4.3},
-                        {top: 365, left: 750, id: 'MA.021.AHM', rating: 4.8},
-                        {top: 365, left: 660, id: 'MA.022.AHM', rating: 4.4},
-                        {top: 365, left: 570, id: 'MA.023.AHM', rating: 4.6},
-                        {top: 335, left: 505, id: 'MA.024.AHM', rating: 4.2},
-                        {top: 365, left: 505, id: 'MA.025.AHM', rating: 4.7},
-                        {top: 365, left: 460, id: 'MA.026.AHM', rating: 4.5},
-                        {top: 365, left: 420, id: 'MA.027.AHM', rating: 4.3},
-                        {top: 335, left: 335, id: 'MA.028.AHM', rating: 4.8},
-                        {top: 365, left: 335, id: 'MA.029.AHM', rating: 4.4},
-                        {top: 460, left: 190, id: 'MA.030.AHM', rating: 4.6},
-                        {top: 460, left: 230, id: 'MA.031.AHM', rating: 4.2},
-                        {top: 460, left: 310, id: 'MA.032.AHM', rating: 4.7},
-                        {top: 460, left: 360, id: 'MA.033.AHM', rating: 4.5},
-                        {top: 460, left: 410, id: 'MA.034.AHM', rating: 4.3},
-                        {top: 460, left: 455, id: 'MA.035.AHM', rating: 4.8},
-
-                        {top: 530, left: 425, id: 'MA.036.AHM', rating: 4.4},
-                        {top: 530, left: 330, id: 'MA.038.AHM', rating: 4.2},
-                        {top: 530, left: 215, id: 'MA.039.AHM', rating: 4.7},
-                        {top: 530, left: 240, id: 'MA.040.AHM', rating: 4.5},
-
-                        // Hino
-                        {top: 50, left: 700, id: 'MA.001.HIN', rating: 4.3},
-                        {top: 50, left: 660, id: 'MA.002.HIN', rating: 4.8},
-                        {top: 50, left: 625, id: 'MA.003.HIN', rating: 4.4},
-                        {top: 50, left: 580, id: 'MA.004.HIN', rating: 4.6},
-                        {top: 50, left: 520, id: 'MA.005.HIN', rating: 4.2},
-
-                        // DNP
-                        // MKM
-                        {top: 50, left: 430, id: 'MA.001.MKM', rating: 4.5},
-
-                        // KTB
-                        {top: 50, left: 290, id: 'MA.001.KTB', rating: 4.3},
-                        {top: 50, left: 250, id: 'MA.002.MKM', rating: 4.8},
-
-                        // Lbow ADM
-                        {top: 50, left: 190, id: 'MA.002.ADM', rating: 4.4},
-
-                        // Kayaba
-                        {top: 460, left: 130, id: 'MA.001.KYB', rating: 4.6},
-                        {top: 420, left: 130, id: 'MA.002.KYB', rating: 4.2}
-                    ];
                     machineLocations.forEach(machine => {
                 //      console.log(machine.id);
                         document.write(`
@@ -270,38 +348,39 @@
       <!-- Right column - Charts and tables -->
       <div class="col-xl-4 col-md-12 col-sm-12">
         <!-- Charts card -->
-        <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4; border-width: 2px; border-style: solid;">
-          <div class="card-body">
+        <div class="card my-1" style="border-radius: 20px; border-color: #87c7f4; border-width: 2px; border-style: solid; height: 440px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: #ffffff;">
+          <div class="card-body" style="padding: 20px;">
             <div class="row">
+
               <!-- GARIS PENENGAH-->
-              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 1px solid #000000;">
+              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 2px solid #000000; height: 400px;">
                 <div class="d-flex flex-column align-items-center justify-content-center">
-                  <div class="text-center mb-4" style="font-weight: bold; font-size: 18px;">ALL-LINE MACHINING</div>
+                  <div class="text-center mb-4" style="font-weight: bold; font-size: 20px;">ALL-LINE MACHINING</div>
                   <div class="d-flex flex-column align-items-center">
-                    <div class="text-center mb-3">
+                    <div class="text-center mb-3">  
                       <script>
                         const rating = 2.5; // Using the displayed rating value
                         const fullStars = Math.floor(rating);
                         const hasHalfStar = rating % 1 >= 0.5;
                         const totalStars = 5;
 
-                        document.write(`<span style="color: black; font-size: clamp(30px, 6vw, 100px); font-weight: bold; margin-top: 40px; margin-bottom: 20px;">${rating}</span>`);
+                        document.write(`<span style="color: black; font-size: clamp(80px, 7vw, 130px); font-weight: bold; margin-top: 40px; margin-bottom: 20px;">${rating}</span>`);
                         document.write('<div class="d-flex justify-content-center mt-2">');
 
                         // Generate full stars
                         for(let i = 0; i < fullStars; i++) {
-                          document.write(`<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 25px; margin: 10px 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star" style="color: #ffcc00; font-size: 35px; margin: 10px 6px;"></i>`);
                         }
 
                         // Add half star if needed
                         if(hasHalfStar) {
-                          document.write(`<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 25px; margin: 10px 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star-half-stroke" style="color: #ffcc00; font-size: 35px; margin: 10px 6px;"></i>`);
                         }
 
                         // Fill remaining with empty stars
                         const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0);
                         for(let i = 0; i < emptyStars; i++) {
-                          document.write(`<i class="fa-solid fa-star" style="color: #e0e0e0; font-size: 25px; margin: 10px 6px;"></i>`);
+                          document.write(`<i class="fa-solid fa-star" style="color: #e0e0e0; font-size: 35px; margin: 10px 6px;"></i>`);
                         }
 
                         document.write('</div>');
@@ -314,14 +393,14 @@
               <!-- Right column - Top 5 table -->
               <div class="col-12 col-sm-6">
                 <div class="d-flex flex-column">
-                  <div class="text-center mb-3" style="font-weight: bold;">TOP 5 RATING LINE</div>
+                  <div class="text-center mb-3" style="font-weight: bold; font-size: 20px; ">TOP 5 RATING LINE</div>
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
                         <tr style="background-color: #f8f9fa;">
-                          <th class="text-center" style="width: 15%;">No</th>
-                          <th class="text-center" style="width: 50%;">Nama</th>
-                          <th class="text-center" style="width: 35%;">Rate</th>
+                          <th class="text-center" style="width: 15%; font-size: 20px;">No</th>
+                          <th class="text-center" style="width: 50%; font-size: 20px;">Nama</th>
+                          <th class="text-center" style="width: 35%; font-size: 20px;">Rate</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -359,7 +438,7 @@
                             document.write(`
                               <tr style="background-color: ${index % 2 === 0 ? '#ffffff' : '#f8f9fa'};">
                                 <td class="text-center">${machine.rank}</td>
-                                <td class="text-center">${machine.Id}</td>
+                                <td class="text-center">${machine.id}</td>
                                 <td class="text-center" style="white-space: nowrap;">
                                   <div class="d-flex justify-content-center">
                                     ${starsHtml}
@@ -377,10 +456,10 @@
             </div>
           </div>
         </div>
-        <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; min-height: 25 em; max-height: 25 em; overflow: auto;">
+        <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; height: 430px; overflow: auto;">
           <div class="card-body">
-            <div class="fs-5 p-2 fw-semibold" style="border-bottom: 5px solid #bcbcbc;">TOP 5 TEMUAN</div>
-            <table class="table table-striped" style="font-size: 0.8em;">
+            <div class="fs-5 p-2 fw-semibold" style="border-bottom: 5px solid #bcbcbc; height: 3em; font-size: 12px;">TOP 5 TEMUAN</div>
+            <table class="table table-striped" style="font-size: 17px; width: 100%; table-layout: fixed; height: 200px;">
               <thead>
                 <tr>
                   <th scope="col" class="text-center">No</th>
@@ -450,48 +529,35 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="lineModal" tabindex="-1" aria-labelledby="lineModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+<div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="animation: dissolve 0.6s ease-out;">
       <div class="modal-header">
-        <h5 class="modal-title" id="lineModalLabel"></h5>
+        <h5 class="modal-title" id="machineModalLabel">Machine Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <div class="chart-container" style="position: relative; height: 300px;">
-              <canvas id="lineChart"></canvas>
-            </div>
+            <canvas id="pieChart"></canvas> <!-- Pie Chart -->
           </div>
           <div class="col-md-6">
-            <div class="chart-container" style="position: relative; height: 300px;">
-              <canvas id="barChart"></canvas>
+            <div id="starRatingBox">
+              <!-- Star rating will be filled here -->
             </div>
           </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-3">
           <div class="col-md-12">
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-outline-primary" id="infoBtn">Informasi</button>
-              <button class="btn btn-outline-primary" id="photoBtn">Foto</button>
-              <button class="btn btn-outline-primary" id="reviewBtn">Ulasan</button>
-            </div>
-            <div class="mt-3">
-              <div class="d-flex align-items-center">
-                <div class="h3 mb-0 me-2" id="avgRating">0.0</div>
-                <div class="text-warning h4 mb-0 me-2" id="starRating"></div>
-                <div class="text-muted" id="totalReviews">(0 Temuan)</div>
-              </div>
-            </div>
+            <button class="btn btn-info" id="infoBtn">Informasi</button>
+            <button class="btn btn-info" id="photoBtn">Foto</button>
+            <button class="btn btn-info" id="reviewBtn">Ulasan</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="scripts.js"></script> 
 </body>
