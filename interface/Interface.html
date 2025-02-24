@@ -351,7 +351,7 @@ new Chart(pieCtx, {
             <div class="row">
 
               <!-- GARIS PENENGAH-->
-              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 2px solid #000000; height: 400px;">
+              <div class="col-12 col-sm-6 mb-4 mb-sm-0" style="border-right: 2px solid #bcbcbc; height: 400px;">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                   <div class="text-center mb-4" style="font-weight: bold; font-size: 20px;">ALL-LINE MACHINING</div>
                   <div class="d-flex flex-column align-items-center">
@@ -456,8 +456,8 @@ new Chart(pieCtx, {
         </div>
         <div class="card my-2" style="border-radius: 20px; border-color: #87c7f4; height: 430px; overflow: auto;">
           <div class="card-body">
-            <div class="fs-5 p-2 fw-semibold" style="border-bottom: 5px solid #bcbcbc; height: 3em; font-size: 12px;">TOP 5 TEMUAN</div>
-            <table class="table table-striped" style="font-size: 17px; width: 100%; table-layout: fixed; height: 200px;">
+            <div class="fs-5 p-2 fw-bold" style="border-bottom: 5px solid #bcbcbc; height: 3em; font-size: 15px;">TOP 5 TEMUAN</div>
+            <table class="table table-striped" style="font-size: 15.5px; width: 100%; table-layout: fixed; height: 200px;">
               <thead>
                 <tr>
                   <th scope="col" class="text-center">No</th>
@@ -530,63 +530,63 @@ new Chart(pieCtx, {
 <div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content" style="animation: dissolve 0.6s linear; height: 650px; width: 1200px; border-radius: 15px;">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: 4px solid #9e9e9c">
         <h5 class="modal-title" id="machineModalLabel" style="font-size: 35px; line-height: 1.5;">Machine Details</h5>
-        <button type="button" data-bs-dismiss="modal" aria-label="Close" style="background-color: white; border-radius: 12px; width: 50px; height: 50px; 
+        <!-- <button type="button" data-bs-dismiss="modal" aria-label="Close" style="background-color: white; border-radius: 12px; width: 50px; height: 50px; 
            border: 4px solid red; display: flex; align-items: center; 
            justify-content: center; font-size: 32px; color: red; font-weight: bold; margin-left: auto;">&times;
-        </button>
-
+        </button> -->
       </div>
       <div class="modal-body">
-        <div id="machineCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="machineCarousel" class="carousel slide">
           <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active" id="defaultCarousel">
               <div class="row">
                 <div class="col-md-6">
-                  <canvas id="pieChart"></canvas> <!-- Pie Chart -->
+                  <canvas id="pieChart" style="cursor: default;"></canvas> <!-- Pie Chart -->
                 </div>
                 <div class="col-md-6">
-                  <canvas id="barChart"></canvas> <!-- Bar Chart -->
+                  <canvas id="barChart" style="cursor: default;"></canvas> <!-- Bar Chart -->
                 </div>
               </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item info-carousel">
               <div class="p-4">
                 <h3>Informasi Mesin</h3>
                 <p>Detail informasi tentang spesifikasi dan kinerja mesin...</p>
               </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item photo-carousel">
               <div class="p-4">
                 <h3>Foto Mesin</h3>
                 <img src="machine.jpg" alt="Machine Photo" class="img-fluid">
               </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item review-carousel">
               <div class="p-4">
                 <h3>Ulasan Mesin</h3>
                 <p>Review dan penilaian dari pengguna mesin...</p>
               </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#machineCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#machineCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
+        <script>
+          // Add event listener to star rating box
+          const starRatingBox = document.getElementById('starRatingBox');
+          starRatingBox.addEventListener('click', () => {
+            // Move carousel to default view
+            const carousel = new bootstrap.Carousel('#machineCarousel');
+            carousel.to(0); // 0 is the index of default carousel item
+          });
+        </script>
       </div>
-        <div class="d-flex justify-content-center align-items-center mt-4" style="margin: 0 100px 30px; gap: 250px;">
-          <a href="/informasi" id="infoBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Informasi</a>
-          <a href="/foto" id="photoBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Foto</a>
-          <a href="/ulasan" id="reviewBtn" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold" style="font-size: 25px; border-bottom: 3px solid #000;">Ulasan</a>
-        </div>
+      <div class="d-flex justify-content-center align-items-center mt-4" style="margin: 0 100px 20px; gap: 250px;">
+        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold info-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="1">Informasi</button>
+        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold photo-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="2">Foto</button>
+        <button type="button" class="btn btn-outline-dark py-3 px-5 rounded-pill fw-bold review-btn" style="font-size: 20px; border-bottom: 3px solid #000;" data-bs-target="#machineCarousel" data-bs-slide-to="3">Ulasan</button>
+      </div>
         <!-- modal footer-->
-          <div class="modal-footer" style="display: flex; justify-content: left; align-items: center; margin-left: 85px; margin-top: 4px; margin-right: 100px;">
+          <div class="modal-footer" style="display: flex; justify-content: left; align-items: center; margin-left: 85px; margin-top: 4px; margin-right: 100px; border-top: 4px solid #9e9e9c;">
             <div id="starRatingBox" style="display: flex; align-items: baseline; font-family: Arial, sans-serif; font-size: 50px; font-weight: bold; padding: 20px;">
               <span id="ratingNumber" style="margin-right: 15px; font-size: 12px; line-height: 50px;">2.5</span>
               <div id="starRating" style="display: flex; gap: 10px; align-items: center;">
@@ -603,7 +603,6 @@ new Chart(pieCtx, {
           </div>
     </div>
   </div>
-
 </div>
 <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="scripts.js"></script> 
