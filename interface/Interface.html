@@ -242,52 +242,225 @@
         // Initialize or update pie chart
         try {
             const pieCtx = document.getElementById('pieChart').getContext('2d');
-            const pieChart = new Chart(pieCtx, {
-                type: 'pie',
-                data: {
-                    labels: ['Open Genba', 'close Genba'],
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            
+            const chartData = {
+                pie: {
+                    labels: ['Open Genba', 'Close Genba'],
                     datasets: [{
                         label: 'Machine Status',
-                        data: [53, 33], // Example data
-                        backgroundColor: ['green','red']
+                        data: [53, 33],
+                        backgroundColor: ['green', 'red']
                     }]
+                }
+            };
+
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: chartData.pie
+            });
+
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['5', '4', '3', '2', '1'],
+                    datasets: [{
+                        data: [10, 6, 4, 2, 1],
+                        backgroundColor: 'yellow',
+                        borderRadius: 5,
+                        barThickness: 10
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: {
+                            display: false,
+                            beginAtZero: true
+                        },
+                        y: {
+                            ticks: {
+                                font: { size: 16, weight: 'bold' }
+                            }
+                        }
+                    }
                 }
             });
         } catch (error) {
-            console.error('Error initializing pie chart:', error);
+            console.error('Error initializing charts:', error);
         }
 
-        // Update star rating
-        //const starRatingBox = document.getElementById('starRatingBox');
-        //starRatingBox.innerHTML = `<h3>${machine.rating}</h3>`;
-        //for (let i = 1; i <= 5; i++) {
-        //    starRatingBox.innerHTML += `<span class="fa fa-star ${i <= machine.rating ? 'checked' : ''}"></span>`;
-        //}
+        const reviews = [
+            {
+              rating: 4.5,
+              name: "Budi Santoso",
+              category: "Operator Mesin",
+              slides: [
+                {
+                  image: "asset/1.webp",
+                  comment: "Mesin berjalan lancar, hanya perlu perawatan rutin"
+                },
+              ]
+            },
+            {
+              rating: 3.5,
+              name: "Ani Wijaya",
+              category: "Quality Control",
+              slides: [
+                {
+                  image: "asset/mesin4.webp",
+                  comment: "Hasil produksi konsisten, perlu monitoring suhu"
+                },
+              ]
+            },
+            {
+              rating: 4,
+              name: "Joko Prasetyo",
+              category: "Maintenance Engineer",
+              slides: [
+                {
+                  image: "asset/mesin6.webp",
+                  comment: "Performa mesin optimal setelah upgrade software"
+                },
+              ]
+            },
+            {
+              rating: 2.5,
+              name: "Siti Rahayu",
+              category: "Production Supervisor",
+              slides: [
+                {
+                  image: "asset/mesin9.webp",
+                  comment: "Sering terjadi error pada sensor"
+                },
+              ]
+            }
+        ];
+
+        let currentReviewIndex = 0;
+
+        function updateReview(index) {
+            const currentReview = reviews[index];
+            
+            // Update review info
+            document.getElementById('reviewRating').textContent = currentReview.rating;
+            document.getElementById('reviewName').textContent = currentReview.name;
+            document.getElementById('reviewCategory').textContent = currentReview.category;
+
+            // Update star rating
+            const starContainer = document.getElementById('starRating');
+            starContainer.innerHTML = '';
+            const fullStars = Math.floor(currentReview.rating);
+            const hasHalfStar = currentReview.rating % 1 !== 0;
+            
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('span');
+                star.className = 'text-warning';
+                if (i < fullStars) {
+                    star.textContent = '★';
+                } else if (hasHalfStar && i === fullStars) {
+                    star.textContent = '½';
+                } else {
+                    star.textContent = '☆';
+                }
+                starContainer.appendChild(star);
+            }
+
+            // Update carousel
+            const carouselInner = document.getElementById('reviewCarouselInner');
+            carouselInner.innerHTML = ''; // Clear existing slides
+            
+            currentReview.slides.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                slideDiv.innerHTML = `
+                    <div class="border rounded p-2">
+                        <div class="p-3 text-center bg-light">
+                            <img src="${slide.image}" alt="Foto Mesin" style="max-width: 80%; max-height: 80px; border-radius: 5px;">
+                        </div>
+                        <hr class="my-1" style="border: 1px solid black;">
+                        <div class="p-3 text-center bg-light-subtle">${slide.comment}</div>
+                    </div>
+                `;
+                carouselInner.appendChild(slideDiv);
+            });
+
+            // Initialize new carousel instance with interval
+            const reviewCarousel = new bootstrap.Carousel('#reviewCarousel', {
+                interval: 500
+            });
+
+            // Initialize new carousel instance
+            new bootstrap.Carousel('#reviewCarousel', {
+                interval: true
+            });
+        }
+
+        // Add event listeners for navigation
+        document.querySelector('.carousel-control-prev').addEventListener('click', () => {
+            currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+            updateReview(currentReviewIndex);
+        });
+
+        document.querySelector('.carousel-control-next').addEventListener('click', () => {
+            currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+            updateReview(currentReviewIndex);
+        });
+
+        // Initialize first review
+        updateReview(0);
+
+       // Initialize carousel
+       const carousel = new bootstrap.Carousel('#machineCarousel', {
+        interval: false
+      });
+
+      // Reset to default view when modal is closed
+      const machineModal = document.getElementById('machineModal');
+      machineModal.addEventListener('hidden.bs.modal', function () {
+        carousel.to(0);
+      });
+
+      // Add active class to buttons based on carousel slide
+      const infoBtn = document.querySelector('.info-btn');
+      const reviewBtn = document.querySelector('.review-btn');
+
+      infoBtn.addEventListener('click', function() {
+        carousel.to(1);
+        infoBtn.classList.add('active');
+        reviewBtn.classList.remove('active');
+      });
+
+      reviewBtn.addEventListener('click', function() {
+        carousel.to(2);
+        reviewBtn.classList.add('active');
+        infoBtn.classList.remove('active');
+      });
+
+      // Add event listener for carousel slide change
+      carousel._element.addEventListener('slid.bs.carousel', function (event) {
+        if (event.to === 0) {
+          infoBtn.classList.remove('active');
+          reviewBtn.classList.remove('active');
+        } else if (event.to === 1) {
+          infoBtn.classList.add('active');
+          reviewBtn.classList.remove('active');
+        } else if (event.to === 2) {
+          reviewBtn.classList.add('active');
+          infoBtn.classList.remove('active');
+        }
+      });
 
         // Show modal
         const myModal = new bootstrap.Modal(document.getElementById('machineModal'), {
             keyboard: false
         });
         myModal.show();
-    }
-
-    // Pie Chart Initialization
-    function createPieChart() {
-      var ctx = document.getElementById("pieChart").getContext("2d");
-      new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: ["Sele", "Proses", ""],
-          datasets: [{
-            data: [50, 30, 20],
-            backgroundColor: ["#4CAF50", "#FFC107", "#F44336"]
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { position: "bottom" } }
-        }
-      });
     }
   
     // Panggil Function
@@ -497,9 +670,9 @@
                     }
                     document.write(`
                       <tr style="height: 3.5em;">
-                        <td class="text-center">$</td>
-                        <td class="text-center">$</td>
-                        <td class="text-center">$</td>
+                        <td class="text-center">${finding.rank}</td>
+                        <td class="text-center">${finding.id}</td>
+                        <td class="text-center">${finding.type}</td>
                         <td class="text-center">
                           <div class="d-flex justify-content-center">
                             ${starsHtml}
@@ -535,44 +708,74 @@
         <div id="machineCarousel" class="carousel slide" data-bs-interval="false">
           <div class="carousel-inner">
             <!-- Default View -->
-            <div class="carousel-item active">
+            <div class="carousel-item chart active">
               <div class="container mt-4">
                 <div class="row">
-                  <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px;">
-                    <canvas id="pieChart" style="max-height: 250px;"></canvas>
+                  <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
+                    <canvas id="pieChart" style="max-height: 100%; max-width: 100%;"></canvas>
                   </div>
                   <div class="col-md-1 d-flex justify-content-center align-items-center">
-                    <div style="width: 2px; height: 250px; background-color: black;"></div>
+                    <div style="width: 3px; height: 100px; background-color: black;"></div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px;">
-                    <img src="asset/1.webp" alt="Foto" style="max-width: 90%; max-height: 250px; border-radius: 5px;">
+                  <div class="col-md-5 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
+                    <img src="asset/1.webp" alt="Foto" style="max-height: 100%; max-width: 100%; border-radius: 5px; object-fit: contain;">
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Information View -->
-            <div class="carousel-item">
-              <div class="p-4">
+            <div class="carousel-item Information">
+              <div class="p-2">
                 <h2 style="margin-bottom: 20px; font-size: 28px;">INFORMASI LINE</h2>  
                 <h4 style="font-size: 20px;">Line LINE-MA.001.SUZ adalah, line yang masuk ke dalam cluster ENGGINE AHM dimana produksinya yaitu produksi SWING ARM</h4>
               </div>
             </div>
 
             <!-- Review View -->
-            <div class="carousel-item">
-              <div class="p-4">
+            <div class="carousel-item Review">
+              <div class="p-2">
                 <h2 style="margin-bottom: 20px;">Ulasan Mesin</h2>
                 <div class="container mt-4">
                   <div class="row">
                     <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px;">
-                      <canvas id="pieChart" style="max-height: 250px;"></canvas>
+                      <canvas id="barChart" style="max-height: 250px;"></canvas>
                     </div>
                     <div class="col-md-1 d-flex justify-content-center align-items-center">
                       <div style="width: 2px; height: 250px; background-color: black;"></div>
                     </div>
-                    <div class="col-md-5 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px;">
-                      <img src="asset/1.webp" alt="Foto" style="max-width: 90%; max-height: 250px; border-radius: 5px;">
+                    
+                    <!-- foto dan komen Ulasan -->
+                    <div class="card text-dark" style="width: 300px; border-radius: 10px; background-color: white;">
+                      <div class="card-body">
+                        <!-- Rating -->
+                        <div class="d-flex align-items-center">
+                          <span class="fs-4 fw-bold" id="reviewRating"></span>
+                          <div class="ms-2" id="starRating"></div>
+                        </div>
+                        
+                        <!-- Nama dan Kategori -->
+                        <p class="mb-1 fw-bold" id="reviewName"></p>
+                        <p class="mb-2 text-muted" id="reviewCategory"></p> 
+                    
+                        <!-- Carousel Foto & Komen -->
+                        <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10">
+                          <div class="carousel-inner" id="reviewCarouselInner">
+                            <!-- Carousel items will be populated by JavaScript -->
+                          </div>
+                          
+                          <!-- Navigasi Carousel -->
+                          <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                        
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -580,32 +783,10 @@
             </div>
           </div>
         </div>
-
-        <script>
-          // Initialize carousel
-          const carousel = new bootstrap.Carousel('#machineCarousel', {
-            interval: false
-          });
-
-          // Reset to default view when modal is closed
-          const machineModal = document.getElementById('machineModal');
-          machineModal.addEventListener('hidden.bs.modal', function () {
-            carousel.to(0);
-          });
-
-          // Add event listeners for buttons
-          document.querySelector('.info-btn').addEventListener('click', function() {
-            carousel.to(1);
-          });
-
-          document.querySelector('.review-btn').addEventListener('click', function() {
-            carousel.to(2);
-          });
-        </script>
       </div>
 
-      <div class="modal-footer" style="display: flex; justify-content: right; align-items: center; border-top: 4px solid #9e9e9c; padding: 15px; height: 100px; margin-top: 10%;">
-        <div class="d-flex justify-content-center align-items-center" style="gap: 30px;">
+      <div class="modal-footer" style="display: flex; justify-content: center; align-items: center; border-top: 4px solid #9e9e9c; padding: 15px; height: 100px; margin-top: 10%;">
+        <div class="d-flex justify-content-center align-items-center" style="gap: 50px;">
           <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold info-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%);">Informasi</button>
           <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold review-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%)">Ulasan</button>
         </div>
@@ -616,6 +797,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
 <script src="cdn/jquery-3.7.1.min.js"></script>
 <script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+<script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script> 
 </body>
 </html>
