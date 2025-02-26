@@ -238,9 +238,9 @@
 
         // Set modal title
         document.getElementById('machineModalLabel').textContent = `LINE-${machine.id}`;
-
         // Initialize or update pie chart
         try {
+          Chart.register(ChartDataLabels);
             const pieCtx = document.getElementById('pieChart').getContext('2d');
             const barCtx = document.getElementById('barChart').getContext('2d');
             
@@ -254,12 +254,11 @@
                     }]
                 },
             };
-  
-
+            
             new Chart(pieCtx, {
-                type: 'pie',
-                data: chartData.pie,
-            });
+              type: 'pie',
+              data: chartData.pie,
+          });
 
             new Chart(barCtx, {
                 type: 'bar',
@@ -337,7 +336,7 @@
               slides: [
                 {
                   image: "asset/mesin9.webp",
-                  comment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo modi vitae, adipisci porro expedita? Optio dolores unde rerum distinctio excepturi vel, minima beatae sequi odio adipisci? Magnam, ipsam incidunt."
+                  comment: "hallo"
                 },
               ]
             }
@@ -381,11 +380,11 @@
                 slideDiv.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                 slideDiv.innerHTML = `
                     <div class="p-2">
-                        <div class="p-2 text-center">
-                            <img src="${slide.image}" alt="Foto Mesin" style="width: 150px; height: 150px; border-radius: 10px;">
+                        <div class="p-2 text-center bg-secondary-subtle" style="border-radius: 4px;">
+                            <img src="${slide.image}" alt="Foto Mesin" style="width: 120px; height: 120px;">
                         </div>
-                        <hr class="my-1">
-                        <div class="p-3 text-left bg-dark-subtle" style="font-size: 1 4px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; ">${slide.comment}</div>
+                        <div class="border-button my-3" style="border-color: #dee2e6;"></div>
+                        <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">${slide.comment}</div>
                     </div>
                 `;
                 carouselInner.appendChild(slideDiv);
@@ -422,32 +421,29 @@
       });
 
       // Add active class to buttons based on carousel slide
-      const infoBtn = document.querySelector('.info-btn');
+      const activeBtn = document.querySelector('.active-btn');
       const reviewBtn = document.querySelector('.review-btn');
 
-      infoBtn.addEventListener('click', function() {
-        carousel.to(1);
-        infoBtn.classList.add('active');
+      activeBtn.addEventListener('click', function() {
+        carousel.to(0);
+        activeBtn.classList.add('active');
         reviewBtn.classList.remove('active');
       });
 
       reviewBtn.addEventListener('click', function() {
-        carousel.to(2);
+        carousel.to(1);
         reviewBtn.classList.add('active');
-        infoBtn.classList.remove('active');
+        activeBtn.classList.remove('active');
       });
 
       // Add event listener for carousel slide change
       carousel._element.addEventListener('slid.bs.carousel', function (event) {
         if (event.to === 0) {
-          infoBtn.classList.remove('active');
+          activeBtn.classList.add('active');
           reviewBtn.classList.remove('active');
         } else if (event.to === 1) {
-          infoBtn.classList.add('active');
-          reviewBtn.classList.remove('active');
-        } else if (event.to === 2) {
           reviewBtn.classList.add('active');
-          infoBtn.classList.remove('active');
+          activeBtn.classList.remove('active');
         }
       });
 
@@ -458,14 +454,14 @@
         myModal.show();
     }
   
-    // Panggil Function
+    // Call function to create pie chart
     createPieChart();
   </script>
 
 </head>
 <body>
   <!-- Header -->
-  <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #ccc; height: 60px;">
+  <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #000000; height: 60px;">
     <img src="asset/logonm.webp" alt="Logo Astra Otoparts" style="height: 40px;">
     <div style="flex-grow: 1; display: flex; justify-content: center;">
       <h1 style="font-size: 18px; font-weight: bold; color: #333; margin: 0;">LINE PRODUCTION RATING</h1>
@@ -703,47 +699,44 @@
       <div class="modal-body">
         <div id="machineCarousel" class="carousel slide" data-bs-interval="false">
           <div class="carousel-inner">
-            <!-- Default View -->
+            <!-- Informasi Line View -->
             <div class="carousel-item active">
-              <div class="container mt-4">
+              <div class="container mt-2">
                 <div class="row">
-                  <h2 style="margin-bottom: 20px; font-size: 28px;">INFORMASI LINE</h2>  
+                  <h2 style="margin-bottom: 0px; font-size: 28px;">INFORMASI LINE</h2>  
                   <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
                     <canvas id="pieChart" style="max-height: 100%; max-width: 100%;"></canvas>
                   </div>
                   <div class="col-md-1 d-flex justify-content-center align-items-center">
-                    <div style="width: 3px; height: 100px; background-color: black;"></div>
+                    <div style="border-right: 6px solid #bcbcbc; height: 365px;"></div>
                   </div>
-                  <div class="col-md-5 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
-                    <img src="asset/1.webp" alt="Foto" style="max-height: 100%; max-width: 100%; border-radius: 5px; object-fit: contain;">
+                  <div class="col-md-5" style="padding: 0;">
+                    <div class="d-flex justify-content-center align-items-center bg-secondary-subtle" style="padding: 20px; border-radius: 10px; height: 250px;">
+                      <img src="asset/1.webp" alt="Foto" style="width: 120px; height: 120px; border-radius: 5px;">
+                    </div>
+                    <div class="border-button my-3" style="border-color: #dee2e6;"></div>
+                    <div class="p-3 text-left bg-dark-subtle" style="font-size: 15px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">
+                      <p class="mb-0"><b>Line:</b> <span id="lineDescription">Line Produksi 1 - Mesin CNC, Kapasitas 500 unit/hari, Beroperasi sejak 2020</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Information View -->
-            <div class="carousel-item Information">
+            <!-- Ulasan Mesin View -->
+            <div class="carousel-item">
               <div class="p-2">
-                <h2 style="margin-bottom: 20px; font-size: 28px;">INFORMASI LINE</h2>  
-                <h4 style="font-size: 20px;">Line LINE-MA.001.SUZ adalah, line yang masuk ke dalam cluster ENGGINE AHM dimana produksinya yaitu produksi SWING ARM</h4>
-              </div>  
-            </div>
-
-            <!-- Review View -->
-            <div class="carousel-item Review">
-              <div class="p-2">
-                <h2 style="margin-bottom: 20px;">Ulasan Mesin</h2>
-                <div class="container mt-4">
+                <h2 style="margin-bottom: 0px;">ULASAN LINE</h2>
+                <div class="container mt-2">
                   <div class="row">
                     <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px;">
                       <canvas id="barChart" style="max-height: 250px;"></canvas>
                     </div>
                     <div class="col-md-1 d-flex justify-content-center align-items-center">
-                      <div style="width: 2.5px; height: 300px; background-color: rgb(195, 195, 195);"></div>
+                      <div style="border-right: 6px solid #bcbcbc; height: 365  px;"></div>
                     </div>
-                    
-                    <!-- foto dan komen Ulasan -->
-                    <div class="col-md-5" style="background-color: white; padding: 0px; border-radius: 5px;">
+                    <!-- Foto dan Komen Ulasan -->
+                    <div class="col-md-5" style="padding: 0px; border-radius: 5px;">
                       <!-- Rating -->
                       <div class="d-flex align-items-center">
                         <span class="fs-4 fw-bold" id="reviewRating"></span>
@@ -752,23 +745,16 @@
                       
                       <!-- Nama dan Kategori -->
                       <p class="mb-1 fw-bold" id="reviewName"></p>
-                      <p class="mb-2 text-muted" id="reviewCategory"></p> 
+                      <p class="mb-2 fw-bold" id="reviewCategory"></p> 
                   
                       <!-- Carousel Foto & Komen -->
-                      <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10">
+                      <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="true">
                         <div class="carousel-inner" id="reviewCarouselInner">
                         </div>
                         
-                        <!-- Navigasi Carousel -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Next</span>
-                        </button>
-                      </div>
+                        <!-- Navigasi Carousel -->  
+                        <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="false"></span><span class="visually-hidden">Previous</span></button><button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -778,17 +764,17 @@
         </div>
       </div>
 
-      <div class="modal-footer" style="display: flex; justify-content: center; align-items: center; border-top: 4px solid #9e9e9c; padding: 15px; height: 100px; margin-top: 10%;">
-        <div class="d-flex justify-content-center align-items-center" style="gap: 50px;">
-          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold info-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%);">Informasi</button>
-          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold review-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%)">Ulasan</button>
+      <div class="modal-footer" style="display: flex; justify-content: center; align-items: center; border-top: 4px solid #888787; padding: 20px; height: 100px; margin-top: 0%;">
+        <div class="d-flex justify-content-center align-items-center" style="gap: 80px;">
+          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold active-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%);" data-bs-target="#machineCarousel" data-bs-slide-to="0">Informasi</button>
+          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold review-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%)" data-bs-target="#machineCarousel" data-bs-slide-to="1">Ulasan</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src=chartjs-plugin-datalabels.min.js></script>
+<script src="chartjs-plugin-datalabels.min.js"></script>
 <script src="chart.js"></script> 
 <script src="cdn/jquery-3.7.1.min.js"></script>
 <script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
