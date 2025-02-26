@@ -364,7 +364,7 @@
                 if (i < fullStars) {
                     star.textContent = '★';
                 } else if (hasHalfStar && i === fullStars) {
-                    star.textContent = '½';
+                    star.textContent = '☆';
                 } else {
                     star.textContent = '☆';
                 }
@@ -389,12 +389,6 @@
                 `;
                 carouselInner.appendChild(slideDiv);
             });
-
-            // Initialize new carousel instance with interval
-            const reviewCarousel = new bootstrap.Carousel('#reviewCarousel', {
-                interval: 500
-            });
-
             // Initialize new carousel instance
             new bootstrap.Carousel('#reviewCarousel', {
                 interval: true
@@ -466,6 +460,7 @@
     // Panggil Function
     createPieChart();
   </script>
+
 </head>
 <body>
   <!-- Header -->
@@ -489,7 +484,7 @@
             background-position: 6% 10px;
             background-repeat: no-repeat;
             height: 55rem; 
-            width: 120rem; 
+            width: 110rem; 
             position: relative;
           ">    
               <script>
@@ -708,9 +703,10 @@
         <div id="machineCarousel" class="carousel slide" data-bs-interval="false">
           <div class="carousel-inner">
             <!-- Default View -->
-            <div class="carousel-item chart active">
+            <div class="carousel-item active">
               <div class="container mt-4">
                 <div class="row">
+                  <h2 style="margin-bottom: 20px; font-size: 28px;">INFORMASI LINE</h2>  
                   <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
                     <canvas id="pieChart" style="max-height: 100%; max-width: 100%;"></canvas>
                   </div>
@@ -761,7 +757,7 @@
                         <!-- Carousel Foto & Komen -->
                         <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10">
                           <div class="carousel-inner" id="reviewCarouselInner">
-                            <!-- Carousel items will be populated by JavaScript -->
+                          
                           </div>
                           
                           <!-- Navigasi Carousel -->
@@ -774,7 +770,6 @@
                             <span class="visually-hidden">Next</span>
                           </button>
                         </div>
-                        
                       </div>
                     </div>
                   </div>
@@ -794,7 +789,8 @@
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+<script src="chart.js"></script> 
 <script src="cdn/jquery-3.7.1.min.js"></script>
 <script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 <script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
