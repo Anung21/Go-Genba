@@ -313,7 +313,7 @@
               category: "Quality Control",
               slides: [
                 {
-                  image: "asset/mesin4.webp",
+                  image: "asset/4.webp",
                   comment: "Hasil produksi konsisten, perlu monitoring suhu"
                 },
               ]
@@ -324,7 +324,7 @@
               category: "Maintenance Engineer",
               slides: [
                 {
-                  image: "asset/mesin6.webp",
+                  image: "asset/3.webp",
                   comment: "Performa mesin optimal setelah upgrade software"
                 },
               ]
@@ -335,7 +335,7 @@
               category: "Production Supervisor",
               slides: [
                 {
-                  image: "asset/mesin9.webp",
+                  image: "asset/4.webp",
                   comment: "hallo"
                 },
               ]
@@ -381,7 +381,7 @@
                 slideDiv.innerHTML = `
                     <div class="p-2">
                         <div class="p-2 text-center bg-secondary-subtle" style="border-radius: 4px;">
-                            <img src="${slide.image}" alt="Foto Mesin" style="width: 120px; height: 120px;">
+                            <img src="${slide.image}" alt="Foto Mesin" style="width: 260px; height: 130px; padding: 3px;">
                         </div>
                         <div class="border-button my-3" style="border-color: #dee2e6;"></div>
                         <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">${slide.comment}</div>
@@ -516,7 +516,7 @@
                   <div class="d-flex flex-column align-items-center">
                     <div class="text-center mb-3">  
                       <script>
-                        const rating = 2.5; // Using the displayed rating value
+                        const rating = 4.5; // Using the displayed rating value
                         const fullStars = Math.floor(rating);
                         const hasHalfStar = rating % 1 >= 0.5;
                         const totalStars = 5;
@@ -564,11 +564,11 @@
                       <tbody>
                         <script>
                           const topMachines = [
-                            {rank: 1, id: 'MA.006.HIN', rating: 5},
-                            {rank: 2, id: 'MA.005.TOY', rating: 3.5}, 
-                            {rank: 3, id: 'MA.003.TOY', rating: 3},
-                            {rank: 4, id: 'MA.002.KYB', rating: 1.5},
-                            {rank: 5, id: 'MA.002.AIS', rating: 1}
+                            {rank: 1, id: 'MA.006.HIN', rating: 4.5},
+                            {rank: 2, id: 'MA.005.TOY', rating: 4}, 
+                            {rank: 3, id: 'MA.003.TOY', rating: 3.5},
+                            {rank: 4, id: 'MA.002.KYB', rating: 2.5},
+                            {rank: 5, id: 'MA.002.AIS', rating: 2}
                           ];
 
                           topMachines.forEach((machine, index) => {
@@ -632,11 +632,11 @@
               <tbody>
                 <script>
                   const findings = [
-                    {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 1},
-                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 1.5}, 
-                    {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 2},
-                    {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 4.5},
-                    {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 5}
+                    {rank: 1, id: 'MA.001.TOY', type: 'Mechanical', rating: 2.5},
+                    {rank: 2, id: 'MA.002.KYB', type: 'Electrical', rating: 3}, 
+                    {rank: 3, id: 'MA.003.AIS', type: 'Software', rating: 3.5},
+                    {rank: 4, id: 'MA.004.TOY', type: 'Mechanical', rating: 4},
+                    {rank: 5, id: 'MA.005.KYB', type: 'Electrical', rating: 4.5}
                   ];
 
                   findings.forEach(finding => {
@@ -712,7 +712,7 @@
                   </div>
                   <div class="col-md-5" style="padding: 0;">
                     <div class="d-flex justify-content-center align-items-center bg-secondary-subtle" style="padding: 20px; border-radius: 10px; height: 250px;">
-                      <img src="asset/1.webp" alt="Foto" style="width: 120px; height: 120px; border-radius: 5px;">
+                      <img src="asset/line.jpg" alt="Foto" style="width: 440px; height: 240px; border-radius: 5px;">
                     </div>
                     <div class="border-button my-3" style="border-color: #dee2e6;"></div>
                     <div class="p-3 text-left bg-dark-subtle" style="font-size: 15px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">
@@ -733,14 +733,14 @@
                       <canvas id="barChart" style="max-height: 250px;"></canvas>
                     </div>
                     <div class="col-md-1 d-flex justify-content-center align-items-center">
-                      <div style="border-right: 6px solid #bcbcbc; height: 365  px;"></div>
+                      <div style="border-right: 6px solid #bcbcbc; height: 365px;"></div>
                     </div>
                     <!-- Foto dan Komen Ulasan -->
                     <div class="col-md-5" style="padding: 0px; border-radius: 5px;">
                       <!-- Rating -->
                       <div class="d-flex align-items-center">
                         <span class="fs-4 fw-bold" id="reviewRating"></span>
-                        <div class="ms-2" id="starRating"></div>
+                        <div class="ms-2" id="starRating" style="font-size: 25px;"></div>
                       </div>
                       
                       <!-- Nama dan Kategori -->
@@ -766,8 +766,8 @@
 
       <div class="modal-footer" style="display: flex; justify-content: center; align-items: center; border-top: 4px solid #888787; padding: 20px; height: 100px; margin-top: 0%;">
         <div class="d-flex justify-content-center align-items-center" style="gap: 80px;">
-          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold active-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%);" data-bs-target="#machineCarousel" data-bs-slide-to="0">Informasi</button>
-          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold review-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%)" data-bs-target="#machineCarousel" data-bs-slide-to="1">Ulasan</button>
+          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold active-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%);" data-bs-target="#machineCarousel" data-bs-slide-to="0">INFO</button>
+          <button type="button" class="btn btn-outline-primary py-2 px-4 rounded-pill fw-semibold review-btn" style="font-size: 18px; border-bottom: 4px solid hsl(198, 72%, 48%)" data-bs-target="#machineCarousel" data-bs-slide-to="1">ULASAN</button>
         </div>
       </div>
     </div>
