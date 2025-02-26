@@ -379,12 +379,12 @@
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                 slideDiv.innerHTML = `
-                    <div class="border rounded p-2">
-                        <div class="p-3 text-center bg-light">
-                            <img src="${slide.image}" alt="Foto Mesin" style="max-width: 80%; max-height: 80px; border-radius: 5px;">
+                    <div class="p-2">
+                        <div class="p-2 text-center">
+                            <img src="${slide.image}" alt="Foto Mesin" style="width: 150px; height: 150px; border-radius: 10px;">
                         </div>
-                        <hr class="my-1" style="border: 1px solid black;">
-                        <div class="p-3 text-center bg-light-subtle">${slide.comment}</div>
+                        <hr class="my-1">
+                        <div class="p-3 text-left bg-secondary-subtle" style="font-size: 14px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; ">${slide.comment}</div>
                     </div>
                 `;
                 carouselInner.appendChild(slideDiv);
@@ -465,9 +465,9 @@
 <body>
   <!-- Header -->
   <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #ccc; height: 60px;">
-    <img src="logo.png" alt="Logo Astra Otoparts" style="height: 40px;">
+    <img src="asset/logonm.webp" alt="Logo Astra Otoparts" style="height: 40px;">
     <div style="flex-grow: 1; display: flex; justify-content: center;">
-      <h1 style="font-size: 18px; font-weight: bold; color: #333; margin: 0;">LINE PRODUCTION CONDITION</h1>
+      <h1 style="font-size: 18px; font-weight: bold; color: #333; margin: 0;">LINE PRODUCTION RATING</h1>
     </div>
   </header>
   <!-- Main container -->
@@ -742,34 +742,31 @@
                     </div>
                     
                     <!-- foto dan komen Ulasan -->
-                    <div class="card text-dark" style="width: 300px; border-radius: 10px; background-color: white;">
-                      <div class="card-body">
-                        <!-- Rating -->
-                        <div class="d-flex align-items-center">
-                          <span class="fs-4 fw-bold" id="reviewRating"></span>
-                          <div class="ms-2" id="starRating"></div>
+                    <div class="col-md-5" style="background-color: white; padding: 0px; border-radius: 5px;">
+                      <!-- Rating -->
+                      <div class="d-flex align-items-center">
+                        <span class="fs-4 fw-bold" id="reviewRating"></span>
+                        <div class="ms-2" id="starRating"></div>
+                      </div>
+                      
+                      <!-- Nama dan Kategori -->
+                      <p class="mb-1 fw-bold" id="reviewName"></p>
+                      <p class="mb-2 text-muted" id="reviewCategory"></p> 
+                  
+                      <!-- Carousel Foto & Komen -->
+                      <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10">
+                        <div class="carousel-inner" id="reviewCarouselInner">
                         </div>
                         
-                        <!-- Nama dan Kategori -->
-                        <p class="mb-1 fw-bold" id="reviewName"></p>
-                        <p class="mb-2 text-muted" id="reviewCategory"></p> 
-                    
-                        <!-- Carousel Foto & Komen -->
-                        <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10">
-                          <div class="carousel-inner" id="reviewCarouselInner">
-                          
-                          </div>
-                          
-                          <!-- Navigasi Carousel -->
-                          <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                          </button>
-                          <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                          </button>
-                        </div>
+                        <!-- Navigasi Carousel -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
                       </div>
                     </div>
                   </div>
