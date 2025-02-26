@@ -255,9 +255,46 @@
                 }
             };
 
+            const data = {
+              labels: ['40%', '30%', '10%', '7%', '13%'],
+              datasets: [{
+                  data: [40, 30, 10, 7, 13],
+                  backgroundColor: [
+                      'rgba(0, 174, 239, 1)',   // Biru
+                      'rgba(0, 114, 188, 1)',   // Biru lebih gelap
+                      'rgba(255, 153, 0, 1)',   // Oranye
+                      'rgba(138, 181, 72, 1)',  // Hijau
+                      'rgba(112, 112, 112, 1)'  // Abu-abu
+                  ],
+                  borderWidth: 1
+              }]
+          };
+  
+
             new Chart(pieCtx, {
                 type: 'pie',
-                data: chartData.pie
+                data: chartData.pie,
+                options: {
+                  responsive: true,
+                  plugins: {
+                      legend: {
+                          display: false
+                      },
+                      datalabels: {
+                          color: '#fff',
+                          font: {
+                              weight: 'bold',
+                              size: 14
+                          },
+                          formatter: (value, ctx) => {
+                              let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                              let percentage = (value * 100 / sum).toFixed(1) + "%";
+                              return percentage;
+                          }
+                      }
+                  }
+                },
+                plugins: [ChartDataLabels]
             });
 
             new Chart(barCtx, {
@@ -336,7 +373,7 @@
               slides: [
                 {
                   image: "asset/mesin9.webp",
-                  comment: "Sering terjadi error pada sensor"
+                  comment: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo modi vitae, adipisci porro expedita? Optio dolores unde rerum distinctio excepturi vel, minima beatae sequi odio adipisci? Magnam, ipsam incidunt."
                 },
               ]
             }
@@ -384,7 +421,7 @@
                             <img src="${slide.image}" alt="Foto Mesin" style="width: 150px; height: 150px; border-radius: 10px;">
                         </div>
                         <hr class="my-1">
-                        <div class="p-3 text-left bg-secondary-subtle" style="font-size: 14px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; ">${slide.comment}</div>
+                        <div class="p-3 text-left bg-dark-subtle" style="font-size: 1 4px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; ">${slide.comment}</div>
                     </div>
                 `;
                 carouselInner.appendChild(slideDiv);
@@ -725,7 +762,7 @@
               <div class="p-2">
                 <h2 style="margin-bottom: 20px; font-size: 28px;">INFORMASI LINE</h2>  
                 <h4 style="font-size: 20px;">Line LINE-MA.001.SUZ adalah, line yang masuk ke dalam cluster ENGGINE AHM dimana produksinya yaitu produksi SWING ARM</h4>
-              </div>
+              </div>  
             </div>
 
             <!-- Review View -->
@@ -738,7 +775,7 @@
                       <canvas id="barChart" style="max-height: 250px;"></canvas>
                     </div>
                     <div class="col-md-1 d-flex justify-content-center align-items-center">
-                      <div style="width: 2px; height: 250px; background-color: black;"></div>
+                      <div style="width: 2.5px; height: 300px; background-color: rgb(195, 195, 195);"></div>
                     </div>
                     
                     <!-- foto dan komen Ulasan -->
@@ -787,6 +824,7 @@
   </div>
 </div>
 
+<script src=chartjs-plugin-datalabels.min.js></script>
 <script src="chart.js"></script> 
 <script src="cdn/jquery-3.7.1.min.js"></script>
 <script src="cdn/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
@@ -794,3 +832,4 @@
 <script src="scripts.js"></script> 
 </body>
 </html>
+
