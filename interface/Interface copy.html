@@ -251,8 +251,8 @@
                     labels: ['Open Genba', 'Close Genba'],
                     datasets: [{
                         label: 'Machine Status',
-                        data: [70, 30],
-                        backgroundColor: ['#1F4529', '#FF2929']
+                        data: [53, 33],
+                        backgroundColor: ['#4CAF50', '#F44336']
                     }]
                 },
             };
@@ -260,14 +260,6 @@
             new Chart(pieCtx, {
               type: 'pie',
               data: chartData.pie,
-              options: {
-                plugins: {
-                  datalabels: {
-                    color: 'white',
-                    font: { weight: 'bold' }
-                  }
-                }
-              }
           });
 
             new Chart(barCtx, {
@@ -394,7 +386,7 @@
                             <img src="${slide.image}" alt="Foto Mesin" style="max-width: 260px; max-height: 130px; padding: 3px;">
                         </div>
                         <div class="border-button my-3" style="border-color: #dee2e6;"></div>
-                        <div class="p-3 text-left bg-dark-subtle" style="font-size: 15px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">${slide.comment}</div>
+                        <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">${slide.comment}</div>
                     </div>
                 `;
                 carouselInner.appendChild(slideDiv);
@@ -471,7 +463,7 @@
 </head>
 <body>
   <!-- Header -->
-  <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #a19e9e; height: 60px;">
+  <header style="display: flex; align-items: center; padding: 10px 20px; background: linear-gradient(to right, white, #cce5ff); border-bottom: 3px solid #000000; height: 60px;">
     <img src="asset/logonm.webp" alt="Logo Astra Otoparts" style="height: 40px;">
     <div style="flex-grow: 1; display: flex; justify-content: center;">
       <h1 style="font-size: 18px; font-weight: bold; color: #333; margin: 0;">LINE PRODUCTION RATING</h1>
@@ -714,15 +706,15 @@
               <div class="container mt-2">
                 <div class="row">
                   <h2 style="margin-bottom: 0px; font-size: 28px;">INFORMASI LINE</h2>  
-                  <div class="col-md-4 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
+                  <div class="col-md-6 d-flex justify-content-center align-items-center" style="background-color: white; padding: 20px; border-radius: 10px; height: 300px;">
                     <canvas id="pieChart" style="height: 100%; width: 100%;"></canvas>
                   </div>
                   <div class="col-md-1 d-flex justify-content-center align-items-center">
-                    <div style="border-right: 6px solid #bcbcbc; height: 300px; width: 300px;"></div>
+                    <div style="border-right: 6px solid #bcbcbc; height: 365px;"></div>
                   </div>
-                  <div class="col-md-7" style="padding: 2;">
+                  <div class="col-md-5" style="padding: 2;">
                     <div class="d-flex justify-content-center align-items-center" style="padding: 0px; border-radius: 10px; height: 250px;">
-                      <img src="asset/line.jpg" alt="Foto" style="width: 550px; height: 240px; border-radius: 5px;">
+                      <img src="asset/line.jpg" alt="Foto" style="width: 440px; height: 240px; border-radius: 5px;">
                     </div>
                     <div class="border-button my-3" style="border-color: #dee2e6;"></div>
                     <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">
