@@ -380,8 +380,8 @@
                 slideDiv.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                 slideDiv.innerHTML = `
                     <div class="p-2">
-                        <div class="p-2 text-center bg-secondary-subtle" style="border-radius: 4px;">
-                            <img src="${slide.image}" alt="Foto Mesin" style="width: 260px; height: 130px; padding: 3px;">
+                        <div class="p-2 text-center" style="border-radius: 4px;">
+                            <img src="${slide.image}" alt="Foto Mesin" style="max-width: 260px; max-height: 130px; padding: 3px;">
                         </div>
                         <div class="border-button my-3" style="border-color: #dee2e6;"></div>
                         <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">${slide.comment}</div>
@@ -710,12 +710,12 @@
                   <div class="col-md-1 d-flex justify-content-center align-items-center">
                     <div style="border-right: 6px solid #bcbcbc; height: 365px;"></div>
                   </div>
-                  <div class="col-md-5" style="padding: 0;">
-                    <div class="d-flex justify-content-center align-items-center bg-secondary-subtle" style="padding: 20px; border-radius: 10px; height: 250px;">
+                  <div class="col-md-5" style="padding: 2;">
+                    <div class="d-flex justify-content-center align-items-center" style="padding: 0px; border-radius: 10px; height: 250px;">
                       <img src="asset/line.jpg" alt="Foto" style="width: 440px; height: 240px; border-radius: 5px;">
                     </div>
                     <div class="border-button my-3" style="border-color: #dee2e6;"></div>
-                    <div class="p-3 text-left bg-dark-subtle" style="font-size: 15px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">
+                    <div class="p-3 text-left bg-dark-subtle" style="font-size: 20px; line-height: 1.4; width: 100%; margin: 0 auto; word-wrap: break-word; border-radius: 4px;">
                       <p class="mb-0"><b>Line:</b> <span id="lineDescription">Line Produksi 1 - Mesin CNC, Kapasitas 500 unit/hari, Beroperasi sejak 2020</span></p>
                     </div>
                   </div>
@@ -782,4 +782,3 @@
 <script src="scripts.js"></script> 
 </body>
 </html>
-
